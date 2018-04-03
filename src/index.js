@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const beaver = (() => {
   const tests = {};
-
+  let hasActiveSpec = false;
   let currentSpecId = 0;
 
   const execute = (test) => {
@@ -14,13 +14,24 @@ const beaver = (() => {
     }
   };
 
-  // No more standalone, executable units anymore 🤦‍
-  const unit = test => tests[currentSpecId].push(test);
-  
+  const unit = (test) => {
+    if(hasActiveSpec) {
+      tests[currentSpecId].push(test);
+    } else {
+      return execute(test);
+    }
+  };
+
+  const executeSpecCallback = (specCallback) => {
+    hasActiveSpec = true;
+    specCallback();
+    hasActiveSpec = false;
+  };
+
   const spec = (specCallback) => {
     tests[currentSpecId] = [];
 
-    specCallback();
+    executeSpecCallback(specCallback);
 
     const testResults = tests[currentSpecId].map(test => execute(test));
 
@@ -56,4 +67,9 @@ assert.equal(
     unit(() => assert.equal(0, 1));
     unit(() => assert.equal(2, 2));
   })
+);
+
+assert.equal(
+  true,
+  unit(() => assert.equal(1, 1))
 );
