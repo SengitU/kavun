@@ -1,5 +1,7 @@
 const assert = require('assert');
 
+const spec = () => {};
+
 const unit = (test) => {
   try {
     test.apply();
@@ -22,5 +24,13 @@ assert.equal(
   // Should return false
   unit(() => {
     assert.equal(0, 1)
+  })
+);
+
+assert.equal(
+  'All tests passed',
+  spec(() => {
+    unit(() => assert.equal(1, 1));
+    unit(() => assert.equal(2, 2));
   })
 );
