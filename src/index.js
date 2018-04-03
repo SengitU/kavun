@@ -1,20 +1,26 @@
 const assert = require('assert');
 
-const spec = (test) => {
+const unit = (test) => {
   try {
     test.apply();
-    console.log('Success')
+    return true;
   } catch(error) {
-    console.log('Failure')
+    return false;
   }
 };
 
-// Should success
-spec(() => {
-  assert.equal(1, 1)
-});
+assert.equal(
+  true,
+  // Should return true
+  unit(() => {
+    assert.equal(1, 1)
+  })
+);
 
-// Should fail
-spec(() => {
-  assert.equal(0, 1)
-});
+assert.equal(
+  false,
+  // Should return false
+  unit(() => {
+    assert.equal(0, 1)
+  })
+);
