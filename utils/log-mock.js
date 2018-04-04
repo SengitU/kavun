@@ -17,8 +17,15 @@ const clear = () => {
 
 const getMessages = () => [...logs];
 
+const toHaveBeenCalledWith = (expression) => {
+  const result = logs.find(log => log.indexOf(expression) > -1);
+
+  return !!result;
+};
+
 module.exports = {
   getMessages,
   clear,
-  apply
+  apply,
+  toHaveBeenCalledWith
 };
