@@ -15,3 +15,5 @@ spec(() => {
   unit(() => assert.equal(0, 1));
   unit(() => assert.equal(2, 2));
 });
+
+setTimeout(() => assert.equal(true, logMock.getMessages().indexOf('3 failure, 5 pass') > -1), 0);

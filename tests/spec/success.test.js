@@ -15,3 +15,5 @@ spec(() => {
   unit(() => assert.equal(3, 3));
   unit(() => assert.equal(4, 4));
 });
+
+setTimeout(() => assert.equal(true, logMock.getMessages().indexOf('All tests passed') > -1), 0);
