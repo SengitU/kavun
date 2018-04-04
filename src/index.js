@@ -1,10 +1,6 @@
 const assert = require('assert');
 
 const beaver = (() => {
-  const tests = {};
-  let hasActiveSpec = false;
-  let currentSpecId = 0;
-
   const execute = (test) => {
     try {
       test();
@@ -14,28 +10,15 @@ const beaver = (() => {
     }
   };
 
-  const unit = (test) => {
-    if(hasActiveSpec) {
-      tests[currentSpecId].push(test);
-    } else {
-      return execute(test);
-    }
-  };
-
-  const executeSpecCallback = (specCallback) => {
-    hasActiveSpec = true;
-    specCallback();
-    hasActiveSpec = false;
-  };
+  const unit = test => execute(test);
 
   const spec = (specCallback) => {
-    tests[currentSpecId] = [];
+    const tests = [];
+    const unit = (test) => tests.push(test);
 
-    executeSpecCallback(specCallback);
+    specCallback(unit);
 
-    const testResults = tests[currentSpecId].map(test => execute(test));
-
-    currentSpecId += 1;
+    const testResults = tests.map(execute);
 
     if(testResults.indexOf(false) > -1) {
       return 'Some tests are failed';
@@ -55,7 +38,7 @@ const { unit, spec } = beaver;
 
 assert.equal(
   'All tests passed',
-  spec(() => {
+  spec((unit) => {
     unit(() => assert.equal(1, 1));
     unit(() => assert.equal(2, 2));
   })
@@ -63,7 +46,7 @@ assert.equal(
 
 assert.equal(
   'Some tests are failed',
-  spec(() => {
+  spec((unit) => {
     unit(() => assert.equal(0, 1));
     unit(() => assert.equal(2, 2));
   })
