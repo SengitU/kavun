@@ -6,14 +6,23 @@ const { spec, unit } = beaver;
 
 logMock.apply();
 
-spec(() => {
-  unit(() => assert.equal(1, 1));
-  unit(() => assert.equal(2, 2));
+spec("equality spec", () => {
+  unit("1 should equal 1", () => assert.equal(1, 1));
+  unit("2 should equal 2", () => assert.equal(2, 2));
 });
 
-spec(() => {
-  unit(() => assert.equal(3, 3));
-  unit(() => assert.equal(4, 4));
+spec("yet another equality spec", () => {
+  unit("3 should equal 3", () => assert.equal(3, 3));
+  unit("4 should equal 4", () => assert.equal(4, 4));
 });
 
-setTimeout(() => assert.equal(true, logMock.getMessages().indexOf('All tests passed') > -1), 0);
+setTimeout(() => {
+  assert.deepEqual(logMock.getMessages(), [
+    "equality spec",
+    "  1 should equal 1",
+    "  2 should equal 2",
+    "yet another equality spec",
+    "  3 should equal 3",
+    "  4 should equal 4"
+  ]);
+}, 0);
