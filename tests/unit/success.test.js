@@ -5,6 +5,6 @@ const assert = require('assert');
 const { unit } = beaver;
 logMock.apply();
 
-unit(() => assert.equal(0, 1));
+unit(() => assert.equal(1, 1));
 
-setTimeout(() => assert.equal(true, logMock.getMessages().indexOf('Some tests failed') > -1), 0);
+setTimeout(() => assert.equal(true, logMock.getMessages().indexOf('All tests passed') > -1), 0);
