@@ -19,7 +19,7 @@ const reporter = {
 
       assert(execute.called);
       assert(reporter.step.calledWith(description, true));
-      assert(reporter.result.calledWith(1, 0));
+      assert(reporter.result.calledWith(0, 1));
   //   });
   // });
 })();
@@ -44,7 +44,7 @@ reporter.result.resetHistory();
   assert(execute.called);
   assert(reporter.step.calledWith(specDescription));
   assert(reporter.step.calledWith(unitDescription, true));
-  assert(reporter.result.calledWith(2, 0));
+  assert(reporter.result.calledWith(0, 2));
   //   });
   // });
 })();
