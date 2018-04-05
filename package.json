@@ -4,5 +4,8 @@
   "description": "Beaverjs is a test framework for node.js",
   "scripts": {},
   "author": "Ugurcan Sengit<ugurcansengit@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "sinon": "^4.5.0"
+  }
 }
