@@ -7,7 +7,8 @@ const { spec } = beaver;
 
 const reporter = {
   step: sinon.spy(),
-  result: sinon.spy()
+  result: sinon.spy(),
+  log: sinon.spy()
 };
 
 spec('runner', (unit) => {
@@ -24,23 +25,22 @@ spec('runner', (unit) => {
     assert(reporter.result.calledWith(0, 1));
   });
 
-  // TODO: This test not working, but it should.
-  // unit('should execute a spec of executables and report results for steps and overall to reporter', () => {
-  //   const specDescription = 'spec';
-  //   const unitDescription = 'unit';
-  //   const executable = () => true;
-  //   const executables = [{type: 'spec', specDescription, tests: [
-  //       {type: 'unit', description: unitDescription, executable },
-  //       {type: 'unit', description: unitDescription, executable }
-  //     ]}];
-  //   const execute = sinon.stub().returns(true);
-  //
-  //   runner(executables, { reporter, execute });
-  //
-  //   assert(execute.called);
-  //   assert(reporter.step.calledWith(specDescription));
-  //   assert(reporter.step.calledWith(unitDescription, true));
-  //   assert(reporter.result.calledWith(0, 2));
-  // });
+  unit('should execute a spec of executables and report results for steps and overall to reporter', () => {
+    const specDescription = 'spec';
+    const unitDescription = 'unit';
+    const executable = () => {};
+    const executables = [{type: 'spec', description: specDescription, tests: [
+        {type: 'unit', description: unitDescription, executable },
+        {type: 'unit', description: unitDescription, executable }
+      ]}];
+    const execute = sinon.stub().returns(true);
+
+    runner(executables, { reporter, execute });
+
+    assert(execute.called);
+    assert(reporter.log.calledWith(specDescription));
+    assert(reporter.step.calledWith(unitDescription, true));
+    assert(reporter.result.calledWith(0, 2));
+  });
 
 });
