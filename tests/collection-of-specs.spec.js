@@ -8,13 +8,11 @@ class SpecCollector {
   constructor() {
     this.numberOfUnits = 0;
     this.numberOfSpecs = 0;
-    this.unitDescriptions = [];
-    this.unitFunctions = [];
+    this.units = [];
   }
 
   unit(description, testFunction) {
-    this.unitDescriptions.push(description);
-    this.unitFunctions.push(testFunction);
+    this.units.push({description, testFunction});
     this.numberOfUnits++;
   }
 
@@ -24,17 +22,17 @@ class SpecCollector {
   }
 
   hasUnitDescription(descriptionToFind) {
-    const foundDescription = this.unitDescriptions.find(item => item === descriptionToFind);
+    const { description: foundDescription } = this.units.find(item => item.description === descriptionToFind);
     return foundDescription === descriptionToFind;
   }
 
   hasUnitFunction(functionToFind) {
-    const foundFunction = this.unitFunctions.find(item => item === functionToFind);
+    const { testFunction: foundFunction} = this.units.find(item => item.testFunction === functionToFind);
     return foundFunction === functionToFind;
   }
 
   withEachUnit(doWith) {
-    doWith({testFunction: this.unitFunctions[0], description: this.unitDescriptions[0]})
+    this.units.forEach(doWith);
   }
 }
 
