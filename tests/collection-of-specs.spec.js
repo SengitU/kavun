@@ -9,10 +9,12 @@ class SpecCollector {
     this.numberOfUnits = 0;
     this.numberOfSpecs = 0;
     this.unitDescriptions = [];
+    this.unitFunctions = [];
   }
 
-  unit(description) {
+  unit(description, testFunction) {
     this.unitDescriptions.push(description);
+    this.unitFunctions.push(testFunction);
     this.numberOfUnits++;
   }
 
@@ -24,6 +26,11 @@ class SpecCollector {
   hasDescription(descriptionToFind) {
     const foundDescription = this.unitDescriptions.find(item => item === descriptionToFind);
     return foundDescription === descriptionToFind;
+  }
+
+  hasUnitFunction(functionToFind) {
+    const foundFunction = this.unitFunctions.find(item => item === functionToFind);
+    return foundFunction === functionToFind;
   }
 
 }
@@ -95,4 +102,14 @@ class SpecCollector {
   specCollector.unit(emptyDesc, () => {});
 
   assert.equal(specCollector.hasDescription(emptyDesc), true);
+}
+
+{
+  // SpecCollector collects functions
+  const specCollector = new SpecCollector();
+  const referenceFunction = () => {};
+
+  specCollector.unit('', referenceFunction);
+
+  assert(specCollector.hasUnitFunction(referenceFunction));
 }
