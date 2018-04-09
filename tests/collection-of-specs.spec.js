@@ -1,6 +1,5 @@
 /*
  * - spec+unit structure should be collected
- * - if code inside specCallback throws, ensure still works
  */
 
 const assert = require('assert');
@@ -9,15 +8,21 @@ class SpecCollector {
   constructor() {
     this.numberOfUnits = 0;
     this.numberOfSpecs = 0;
+    this.unitDescriptions = [];
   }
 
-  unit() {
+  unit(description) {
+    this.unitDescriptions.push(description);
     this.numberOfUnits++;
   }
 
   spec(description, specCallback) {
     specCallback();
     this.numberOfSpecs++;
+  }
+
+  getDescriptions() {
+    return this.unitDescriptions;
   }
 
 }
@@ -69,4 +74,14 @@ class SpecCollector {
     });
   };
   assert.throws(fn);
+}
+
+{
+  // SpecCollector should collect provided descriptions
+  const specCollector = new SpecCollector();
+  const desc = 'description';
+
+  specCollector.unit(desc, () => {});
+
+  assert.equal(desc, specCollector.getDescriptions().find(item => item === desc));
 }
