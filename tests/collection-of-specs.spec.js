@@ -23,8 +23,8 @@ class SpecCollector {
 }
 
 {
-  const specCollector = new SpecCollector();
-  specCollector.unit('1 unit', () => {});
+  const {unit} = new SpecCollector();
+  unit('1 unit', () => {});
 
   assert.equal(specCollector.numberOfUnits, 1);
 }
