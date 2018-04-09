@@ -1,6 +1,6 @@
 /*
- * No spec, no unit
- * 1 unit
+ * - spec+unit structure should be collected
+ * - if code inside specCallback throws, ensure still works
  */
 
 const assert = require('assert');
@@ -57,4 +57,16 @@ class SpecCollector {
   });
 
   assert.equal(specCollector.numberOfSpecs, 1);
+}
+
+{
+  // When code inside spec throws, specCollector should stop.
+  const specCollector = new SpecCollector();
+
+  const fn = () => {
+    specCollector.spec('spec with one unit', () => {
+      throw Error();
+    });
+  };
+  assert.throws(fn);
 }
