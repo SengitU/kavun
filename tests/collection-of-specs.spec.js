@@ -77,11 +77,21 @@ class SpecCollector {
 }
 
 {
-  // SpecCollector should collect provided descriptions
+  // SpecCollector collects descriptions
   const specCollector = new SpecCollector();
   const desc = 'description';
 
   specCollector.unit(desc, () => {});
 
   assert.equal(specCollector.hasDescription(desc), true);
+}
+
+{
+  // SpecCollector collects empty descriptions
+  const specCollector = new SpecCollector();
+  const emptyDesc = '';
+
+  specCollector.unit(emptyDesc, () => {});
+
+  assert.equal(specCollector.hasDescription(emptyDesc), true);
 }
