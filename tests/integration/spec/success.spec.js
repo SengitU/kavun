@@ -24,4 +24,4 @@ setTimeout(() => {
   assert(consoleStub.calledWith("3 should equal 3 => ✓"));
   assert(consoleStub.calledWith("4 should equal 4 => ✓"));
   assert(consoleStub.calledWith("0 failed, 4 succeeded"));
-}, 0);
+}, 1000);

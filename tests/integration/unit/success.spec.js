@@ -11,4 +11,4 @@ unit('1 should equal 1',() => assert.equal(1, 1));
 setTimeout(() => {
   assert(consoleStub.calledWith('1 should equal 1 => ✓'));
   assert(consoleStub.calledWith('0 failed, 1 succeeded'));
-}, 0);
+}, 1000);
