@@ -33,6 +33,9 @@ class SpecCollector {
     return foundFunction === functionToFind;
   }
 
+  withEachUnit(doWith) {
+    doWith({testFunction: this.unitFunctions[0], description: this.unitDescriptions[0]})
+  }
 }
 
 {
@@ -112,4 +115,19 @@ class SpecCollector {
   specCollector.unit('', referenceFunction);
 
   assert(specCollector.hasUnitFunction(referenceFunction));
+}
+
+{
+  // SpecCollector collects unit (description+fn).
+  const specCollector = new SpecCollector();
+  const description = 'my desc';
+  const referenceFunction = () => {};
+
+  specCollector.unit(description, referenceFunction);
+
+  const doWith = (unit) => {
+    assert(unit.description, description);
+    assert(unit.testFunction, referenceFunction);
+  };
+  specCollector.withEachUnit(doWith);
 }
