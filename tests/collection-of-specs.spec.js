@@ -94,7 +94,10 @@ class SpecCollector {
 
   specCollector.unit(desc, () => {});
 
-  assert.equal(specCollector.hasUnitDescription(desc), true);
+  const hasUnitDescription = unit => {
+    assert.equal(unit.description, desc);
+  };
+  specCollector.withEachUnit(hasUnitDescription);
 }
 
 {
@@ -104,7 +107,10 @@ class SpecCollector {
 
   specCollector.unit(emptyDesc, () => {});
 
-  assert.equal(specCollector.hasUnitDescription(emptyDesc), true);
+  const hasUnitDescription = unit => {
+    assert.equal(unit.description, emptyDesc);
+  };
+  specCollector.withEachUnit(hasUnitDescription);
 }
 
 {
@@ -114,7 +120,10 @@ class SpecCollector {
 
   specCollector.unit('', referenceFunction);
 
-  assert(specCollector.hasUnitFunction(referenceFunction));
+  const hasUnitFunction = unit => {
+    assert.equal(unit.testFunction, referenceFunction);
+  };
+  specCollector.withEachUnit(hasUnitFunction);
 }
 
 {
