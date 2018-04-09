@@ -23,16 +23,6 @@ class SpecCollector {
     this.numberOfSpecs++;
   }
 
-  hasUnitDescription(descriptionToFind) {
-    const { description: foundDescription } = this.units.find(item => item.description === descriptionToFind);
-    return foundDescription === descriptionToFind;
-  }
-
-  hasUnitFunction(functionToFind) {
-    const { testFunction: foundFunction} = this.units.find(item => item.testFunction === functionToFind);
-    return foundFunction === functionToFind;
-  }
-
   withEachUnit(doWith) {
     this.units.forEach(doWith);
   }
