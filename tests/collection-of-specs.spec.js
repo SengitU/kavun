@@ -23,7 +23,7 @@ class SpecCollector {
     this.numberOfSpecs++;
   }
 
-  hasDescription(descriptionToFind) {
+  hasUnitDescription(descriptionToFind) {
     const foundDescription = this.unitDescriptions.find(item => item === descriptionToFind);
     return foundDescription === descriptionToFind;
   }
@@ -91,7 +91,7 @@ class SpecCollector {
 
   specCollector.unit(desc, () => {});
 
-  assert.equal(specCollector.hasDescription(desc), true);
+  assert.equal(specCollector.hasUnitDescription(desc), true);
 }
 
 {
@@ -101,7 +101,7 @@ class SpecCollector {
 
   specCollector.unit(emptyDesc, () => {});
 
-  assert.equal(specCollector.hasDescription(emptyDesc), true);
+  assert.equal(specCollector.hasUnitDescription(emptyDesc), true);
 }
 
 {
