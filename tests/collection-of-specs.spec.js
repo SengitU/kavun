@@ -14,11 +14,11 @@ class SpecCollector {
     return this.units.length;
   }
 
-  unit(description, testFunction) {
+  addUnit(description, testFunction) {
     this.units.push({description, testFunction});
   }
 
-  spec(description, specCallback) {
+  addSpec(description, specCallback) {
     specCallback();
     this.numberOfSpecs++;
   }
@@ -31,7 +31,7 @@ class SpecCollector {
 {
   // Providing 1 unit, SpecCollector finds 1 unit.
   const specCollector = new SpecCollector();
-  specCollector.unit('1 unit', () => {});
+  specCollector.addUnit('1 unit', () => {});
 
   assert.equal(specCollector.numberOfUnits, 1);
 }
@@ -39,8 +39,8 @@ class SpecCollector {
 {
   // Providing multiple units, SpecCollector finds them.
   const specCollector = new SpecCollector();
-  specCollector.unit('1 unit', () => {});
-  specCollector.unit('1 unit', () => {});
+  specCollector.addUnit('1 unit', () => {});
+  specCollector.addUnit('1 unit', () => {});
 
   assert.equal(specCollector.numberOfUnits, 2);
 }
@@ -48,8 +48,8 @@ class SpecCollector {
 {
   // Providing unit inside spec, SpecCollector finds the unit.
   const specCollector = new SpecCollector();
-  specCollector.spec('spec with one unit', () => {
-    specCollector.unit('1 unit', () => {});
+  specCollector.addSpec('spec with one unit', () => {
+    specCollector.addUnit('1 unit', () => {});
   });
 
   assert.equal(specCollector.numberOfUnits, 1);
@@ -58,8 +58,8 @@ class SpecCollector {
 {
   // Providing unit inside spec, SpecCollector finds the spec.
   const specCollector = new SpecCollector();
-  specCollector.spec('spec with one unit', () => {
-    specCollector.unit('1 unit', () => {});
+  specCollector.addSpec('spec with one unit', () => {
+    specCollector.addUnit('1 unit', () => {});
   });
 
   assert.equal(specCollector.numberOfSpecs, 1);
@@ -70,7 +70,7 @@ class SpecCollector {
   const specCollector = new SpecCollector();
 
   const fn = () => {
-    specCollector.spec('spec with one unit', () => {
+    specCollector.addSpec('spec with one unit', () => {
       throw Error();
     });
   };
@@ -82,7 +82,7 @@ class SpecCollector {
   const specCollector = new SpecCollector();
   const desc = 'description';
 
-  specCollector.unit(desc, () => {});
+  specCollector.addUnit(desc, () => {});
 
   const hasUnitDescription = unit => {
     assert.equal(unit.description, desc);
@@ -95,7 +95,7 @@ class SpecCollector {
   const specCollector = new SpecCollector();
   const emptyDesc = '';
 
-  specCollector.unit(emptyDesc, () => {});
+  specCollector.addUnit(emptyDesc, () => {});
 
   const hasUnitDescription = unit => {
     assert.equal(unit.description, emptyDesc);
@@ -108,7 +108,7 @@ class SpecCollector {
   const specCollector = new SpecCollector();
   const referenceFunction = () => {};
 
-  specCollector.unit('', referenceFunction);
+  specCollector.addUnit('', referenceFunction);
 
   const hasUnitFunction = unit => {
     assert.equal(unit.testFunction, referenceFunction);
@@ -122,7 +122,7 @@ class SpecCollector {
   const description = 'my desc';
   const referenceFunction = () => {};
 
-  specCollector.unit(description, referenceFunction);
+  specCollector.addUnit(description, referenceFunction);
 
   const doWith = (unit) => {
     assert(unit.description, description);
