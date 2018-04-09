@@ -8,6 +8,7 @@ class SpecCollector {
   constructor() {
     this.numberOfSpecs = 0;
     this.units = [];
+    this._activeSpecs = [];
   }
 
   get numberOfUnits() {
@@ -15,12 +16,14 @@ class SpecCollector {
   }
 
   addUnit(description, testFunction) {
-    this.units.push({description, testFunction});
+    this.units.push({description, testFunction, specs: [...this._activeSpecs]});
   }
 
   addSpec(description, specCallback) {
+    this._activeSpecs.push(description);
     specCallback();
     this.numberOfSpecs++;
+    this._activeSpecs.pop();
   }
 
   withEachUnit(doWith) {
@@ -127,6 +130,26 @@ class SpecCollector {
   const doWith = (unit) => {
     assert(unit.description, description);
     assert(unit.testFunction, referenceFunction);
+  };
+  specCollector.withEachUnit(doWith);
+}
+
+{
+  // SpecCollector collects specs.
+  const specCollector = new SpecCollector();
+
+  const noop = () => {};
+  const description = 'unit';
+  specCollector.addSpec('spec', () => {
+    specCollector.addSpec('spec1', () => {
+      specCollector.addUnit(description, noop);
+    });
+  });
+
+  const doWith = (unit) => {
+    assert(unit.specs, ['spec', 'spec1']);
+    assert(unit.description, description);
+    assert(unit.testFunction, noop);
   };
   specCollector.withEachUnit(doWith);
 }
