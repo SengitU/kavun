@@ -8,11 +8,18 @@ const assert = require('assert');
 class SpecCollector {
   constructor() {
     this.numberOfUnits = 0;
+    this.numberOfSpecs = 0;
   }
 
   unit() {
     this.numberOfUnits++;
   }
+
+  spec(description, specCallback) {
+    specCallback();
+    this.numberOfSpecs++;
+  }
+
 }
 
 {
@@ -31,24 +38,19 @@ class SpecCollector {
 }
 
 {
-  let numberOfUnits = 0;
-  const spec = (description, specCallback) => { specCallback() };
-  const unit = () => { numberOfUnits++ };
-  spec('spec with one unit', () => {
-    unit('1 unit', () => {});
+  const specCollector = new SpecCollector();
+  specCollector.spec('spec with one unit', () => {
+    specCollector.unit('1 unit', () => {});
   });
 
-  assert.equal(numberOfUnits, 1);
+  assert.equal(specCollector.numberOfUnits, 1);
 }
 
 {
-  let numberOfUnits = 0;
-  let numberOfSpecs = 0;
-  const spec = (description, specCallback) => { numberOfSpecs++; specCallback(); };
-  const unit = () => { numberOfUnits++ };
-  spec('spec with one unit', () => {
-    unit('1 unit', () => {});
+  const specCollector = new SpecCollector();
+  specCollector.spec('spec with one unit', () => {
+    specCollector.unit('1 unit', () => {});
   });
 
-  assert.equal(numberOfSpecs, 1);
+  assert.equal(specCollector.numberOfSpecs, 1);
 }
