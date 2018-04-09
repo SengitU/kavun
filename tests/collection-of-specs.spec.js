@@ -22,7 +22,8 @@ class SpecCollector {
   }
 
   hasDescription(descriptionToFind) {
-    return !!this.unitDescriptions.find(item => item === descriptionToFind);
+    const foundDescription = this.unitDescriptions.find(item => item === descriptionToFind);
+    return foundDescription === descriptionToFind;
   }
 
 }
