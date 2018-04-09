@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const assert = require('assert');
-const reporter = require('../lib/reporter');
+const reporter = require('../lib/reporters/index');
 const beaver = require('../lib');
 
 const { spec } = beaver;
