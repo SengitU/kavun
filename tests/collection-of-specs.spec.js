@@ -6,14 +6,16 @@ const assert = require('assert');
 
 class SpecCollector {
   constructor() {
-    this.numberOfUnits = 0;
     this.numberOfSpecs = 0;
     this.units = [];
   }
 
+  get numberOfUnits() {
+    return this.units.length;
+  }
+
   unit(description, testFunction) {
     this.units.push({description, testFunction});
-    this.numberOfUnits++;
   }
 
   spec(description, specCallback) {
