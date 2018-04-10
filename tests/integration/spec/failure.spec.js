@@ -16,9 +16,11 @@ spec('Equality Spec', () => {
 
 setTimeout(() => {
   assert(consoleStub.calledWith("Equality Spec 0 should equal 0 => x"));
+  assert(consoleStub.calledWith("\tActual: 0, Expected: 1"));
   assert(consoleStub.calledWith("Equality Spec 2 should equal 2 => ✓"));
   assert(consoleStub.calledWith("Equality Spec 1 should equal 1 => ✓"));
   assert(consoleStub.calledWith("Equality Spec 5 should equal 5 => x"));
+  assert(consoleStub.calledWith("\tActual: 5, Expected: 4"));
   assert(consoleStub.calledWith("Equality Spec 4 should equal 4 => ✓"));
   assert(consoleStub.calledWith("2 failed, 3 succeeded"));
 }, 1000);

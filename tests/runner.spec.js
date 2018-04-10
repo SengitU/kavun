@@ -77,7 +77,7 @@ spec('Runner', () => {
 
     await runner(unitCollector, { reporter, execute });
 
-    assert(reporter.log.calledWith(`actual: ${failureObj.actual}, expected: ${failureObj.expected}`));
+    assert(reporter.log.calledWith(`Actual: ${failureObj.actual}, Expected: ${failureObj.expected}`));
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
   });
