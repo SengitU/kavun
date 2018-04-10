@@ -3,7 +3,7 @@ const assert = require('assert');
 const reporter = require('../lib/reporters/index');
 const beaver = require('../lib');
 
-const { spec } = beaver;
+const { spec, unit } = beaver;
 
 // Output device is normally console
 const outputDevice = {
@@ -11,7 +11,7 @@ const outputDevice = {
 };
 const mockedReporter = reporter(outputDevice);
 
-spec('Reporter log', (unit) => {
+spec('Reporter log', () => {
   unit('should print exactly', () => {
     const description = 'test';
     mockedReporter.log(description, true);
@@ -21,7 +21,7 @@ spec('Reporter log', (unit) => {
 });
 
 
-spec('Reporter step', (unit) => {
+spec('Reporter step', () => {
   unit('should add check mark for succeeded tests', () => {
     const description = 'test';
     mockedReporter.step(description, true);
@@ -37,7 +37,7 @@ spec('Reporter step', (unit) => {
   });
 });
 
-spec('Reporter result', (unit) => {
+spec('Reporter result', () => {
   unit('should print number of successes and failures', () => {
     mockedReporter.result(3, 5);
 
