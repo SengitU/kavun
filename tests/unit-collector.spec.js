@@ -1,38 +1,6 @@
-/*
- * - spec+unit structure should be collected
- */
-
 const assert = require('assert');
 const { spec, unit } = require('../lib');
-
-class SpecCollector {
-  constructor() {
-    this.numberOfSpecs = 0;
-    this.units = [];
-    this._activeSpecs = [];
-  }
-
-  get numberOfUnits() {
-    return this.units.length;
-  }
-
-  addUnit(description, testFunction) {
-    this.units.push({description, testFunction, specs: [...this._activeSpecs]});
-  }
-
-  addSpec(description, specCallback) {
-    this._activeSpecs.push(description);
-    specCallback();
-    this.numberOfSpecs++;
-    this._activeSpecs.pop();
-  }
-
-  withEachUnit(doWith) {
-    this.units.forEach(doWith);
-  }
-}
-
-
+const SpecCollector = require('../lib/unit-collector');
 
 spec('SpecCollector', () => {
   unit('Providing 1 unit, SpecCollector finds 1 unit.', () => {
@@ -41,8 +9,6 @@ spec('SpecCollector', () => {
 
     assert.equal(specCollector.numberOfUnits, 1);
   });
-
-
 
   unit('Providing multiple units, SpecCollector finds them.', () => {
     const specCollector = new SpecCollector();
@@ -81,7 +47,7 @@ spec('SpecCollector', () => {
     assert.throws(fn);
   });
 
-  unit('SpecCollector collects descriptions', () => {
+  unit('collects descriptions', () => {
     const specCollector = new SpecCollector();
     const desc = 'description';
 
@@ -93,7 +59,7 @@ spec('SpecCollector', () => {
     specCollector.withEachUnit(hasUnitDescription);
   });
 
-  unit('SpecCollector collects empty descriptions', () => {
+  unit('collects empty descriptions', () => {
     const specCollector = new SpecCollector();
     const emptyDesc = '';
 
@@ -105,7 +71,7 @@ spec('SpecCollector', () => {
     specCollector.withEachUnit(hasUnitDescription);
   });
 
-  unit('SpecCollector collects functions', () => {
+  unit('collects functions', () => {
     const specCollector = new SpecCollector();
     const referenceFunction = () => {};
 
@@ -117,7 +83,7 @@ spec('SpecCollector', () => {
     specCollector.withEachUnit(hasUnitFunction);
   });
 
-  unit('SpecCollector collects unit (description+fn).', () => {
+  unit('collects unit (description+fn).', () => {
     const specCollector = new SpecCollector();
     const description = 'my desc';
     const referenceFunction = () => {};
@@ -131,7 +97,7 @@ spec('SpecCollector', () => {
     specCollector.withEachUnit(doWith);
   });
 
-  unit('SpecCollector collects specs.', () => {
+  unit('collects specs.', () => {
     const specCollector = new SpecCollector();
 
     const noop = () => {};
