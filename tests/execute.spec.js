@@ -2,21 +2,21 @@ const assert = require('assert');
 const execute = require('../lib/execute');
 const beaver = require('../lib');
 
-const { spec } = beaver;
+const { spec, unit } = beaver;
 
-spec('execute', (unit) => {
-  unit('should return true for succeeding executable', () => {
+spec('execute', () => {
+  unit('should return true for succeeding executable', async () => {
     const succeedingExecutable = () => assert.equal(1, 1);
-    assert(execute(succeedingExecutable));
+    await execute(succeedingExecutable).then(res => assert(res));
   });
 
-  unit('should return false for failing executable', () => {
+  unit('should return false for failing executable', async () => {
     const failingExecutable = () => assert.equal(0, 1);
-    assert.equal(false, execute(failingExecutable));
+    await execute(failingExecutable).then(res => assert.equal(false, res));
   });
 
-  unit('should be able to execute async functions', () => {
-    const failingExecutable = () => Promise.resolve(() => assert.equal(0, 1));
-    assert.equal(false, execute(failingExecutable));
+  unit('should be able to execute async functions', async () => {
+    const failingExecutable = () => new Promise((resolve) => resolve(assert.equal(0, 1)));
+    await execute(failingExecutable).then(res => assert.equal(false, res));
   });
 });
