@@ -11,15 +11,15 @@ spec('FileLoader', () => {
     const firstFile = `${__dirname}/test-files/1.spec.js`;
     const secondFile = `${__dirname}/test-files/2.spec.js`;
 
-    mockLoader.loadPaths([firstFile, secondFile]);
+    mockLoader.loadFiles([firstFile, secondFile]);
 
     assert(loaderMock.calledWith(firstFile));
     assert(loaderMock.calledWith(secondFile));
   });
 
-  unit('should be able to load all specs', () => {
+  unit('should be able to load all specs inside of the given path', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
-    mockLoader.loadAll();
+    mockLoader.loadAll(__dirname);
 
     assert(loaderMock.calledWith(dirName('execute.spec.js')));
     assert(loaderMock.calledWith(dirName('reporter.spec.js')));
