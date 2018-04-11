@@ -19,17 +19,13 @@ spec('FileLoader', () => {
 
   unit('should be able to load all specs inside of the given path', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
-    mockLoader.loadAll(__dirname);
+    mockLoader.load(__dirname);
 
     assert(loaderMock.calledWith(dirName('execute.spec.js')));
     assert(loaderMock.calledWith(dirName('reporter.spec.js')));
     assert(loaderMock.calledWith(dirName('runner.spec.js')));
     assert(loaderMock.calledWith(dirName('unit-collector.spec.js')));
     assert(loaderMock.calledWith(dirName('file-loader.spec.js')));
-    assert(loaderMock.calledWith(dirName('integration/spec/failure.spec.js')));
-    assert(loaderMock.calledWith(dirName('integration/spec/success.spec.js')));
-    assert(loaderMock.calledWith(dirName('integration/unit/success.spec.js')));
-    assert(loaderMock.calledWith(dirName('integration/unit/failure.spec.js')));
   });
 
 });
