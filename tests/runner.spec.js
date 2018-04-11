@@ -9,7 +9,8 @@ const { spec, unit } = beaver;
 const reporter = {
   step: sinon.spy(),
   result: sinon.spy(),
-  log: sinon.spy()
+  log: sinon.spy(),
+  newLine: sinon.spy()
 };
 
 spec('Runner', () => {
@@ -77,9 +78,7 @@ spec('Runner', () => {
 
     await runner(unitCollector, { reporter, execute });
 
-    assert(reporter.log.calledWith(`Actual: ${failureObj.actual}, Expected: ${failureObj.expected}`));
-    assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
-    assert(reporter.result.calledWith(0, 2));
+    assert(reporter.log.calledWith(`\tActual: ${failureObj.actual}, Expected: ${failureObj.expected}`));
   });
 
 });
