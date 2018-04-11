@@ -6,9 +6,10 @@ const { unit } = beaver;
 
 const consoleStub = sinon.stub(console, 'log').callThrough();
 
-unit('0 should equal 1', () => assert.equal(0, 1));
+unit('0 should equal 0', () => assert.equal(0, 1));
 
 setTimeout(() => {
-  assert(consoleStub.calledWith('0 should equal 1 => x'));
+  assert(consoleStub.calledWith('0 should equal 0 => x'));
+  assert(consoleStub.calledWith('\tActual: 0, Expected: 1'));
   assert(consoleStub.calledWith('1 failed, 0 succeeded'));
 }, 1000);

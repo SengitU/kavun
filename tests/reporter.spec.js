@@ -21,6 +21,13 @@ spec('Reporter', () => {
     });
   });
 
+  spec('New Line', () => {
+    unit('should move to the new line', () => {
+      mockedReporter.newLine();
+
+      assert.equal(true, outputDevice.log.calledWith('\n'));
+    });
+  });
 
   spec('Step', () => {
     unit('should add check mark for succeeded tests', () => {
