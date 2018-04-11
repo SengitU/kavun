@@ -2,7 +2,9 @@
   "name": "Beaverjs",
   "version": "0.0.1",
   "description": "Beaverjs is a test framework for node.js",
-  "scripts": {},
+  "scripts": {
+    "test": "node lib/cli.js"
+  },
   "author": "Ugurcan Sengit<ugurcansengit@gmail.com>",
   "license": "MIT",
   "devDependencies": {
