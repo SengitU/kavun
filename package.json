@@ -1,12 +1,29 @@
 {
-  "name": "Beaverjs",
+  "name": "Kavun",
   "version": "0.0.1",
-  "description": "Beaverjs is a test framework for node.js",
+  "description": "A test framework for Javascript",
   "scripts": {
     "test": "node lib/cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SengitU/kavun"
+  },
+  "keywords": [
+    "kavun",
+    "javascript",
+    "js",
+    "node",
+    "test",
+    "unit test",
+    "spec runner"
+  ],
   "author": "Ugurcan Sengit<ugurcansengit@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SengitU/kavun/issues"
+  },
+  "homepage": "https://github.com/SengitU/kavun#readme",
   "devDependencies": {
     "sinon": "^4.5.0"
   }
