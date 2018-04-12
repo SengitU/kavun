@@ -2,9 +2,9 @@
 
 Kavun is a light weight spec runner library for Javascript.
 
-#### Usage Examples
+### Usage Examples
 
-##### Unit
+#### Unit
 
 A sync example for unit
 
@@ -48,7 +48,7 @@ unit('Example async unit with async / await', async () => {
 });
 ```
 
-##### Spec
+#### Spec
 
 ```js
 const assert = require('assert');
