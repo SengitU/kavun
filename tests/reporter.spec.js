@@ -1,11 +1,8 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const reporter = require('../lib/reporters/index');
-const beaver = require('../lib');
+const { spec, unit } = require('../lib');
 
-const { spec, unit } = beaver;
-
-// Output device is normally console
 const outputDevice = {
   log: sinon.spy()
 };

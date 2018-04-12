@@ -1,8 +1,6 @@
 const assert = require('assert');
 const execute = require('../lib/execute');
-const beaver = require('../lib');
-
-const { spec, unit } = beaver;
+const { spec, unit } = require('../lib');
 
 spec('execute', () => {
   unit('should return true for succeeding executable', async () => {

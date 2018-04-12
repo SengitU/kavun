@@ -1,5 +1,5 @@
 {
-  "name": "Kavun",
+  "name": "kavun",
   "version": "0.0.1",
   "description": "A test framework for Javascript",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/SengitU/kavun"
+    "url": "git+https://github.com/SengitU/kavun.git"
   },
   "keywords": [
     "kavun",
@@ -18,7 +18,7 @@
     "unit test",
     "spec runner"
   ],
-  "author": "Ugurcan Sengit<ugurcansengit@gmail.com>",
+  "author": "Ugurcan Sengit <ugurcansengit@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/SengitU/kavun/issues"
@@ -26,5 +26,12 @@
   "homepage": "https://github.com/SengitU/kavun#readme",
   "devDependencies": {
     "sinon": "^4.5.0"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {}
 }

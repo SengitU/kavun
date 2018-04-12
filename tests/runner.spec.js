@@ -2,9 +2,7 @@ const sinon = require('sinon');
 const assert = require('assert');
 const runner = require('../lib/runner');
 const UnitCollector = require('../lib/unit-collector');
-const beaver = require('../lib');
-
-const { spec, unit } = beaver;
+const { spec, unit } = require('../lib');
 
 const reporter = {
   step: sinon.spy(),
