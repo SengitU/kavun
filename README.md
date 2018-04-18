@@ -84,3 +84,12 @@ To contribute, clone the repository then;
 To run the tests;
 
 `npm test`
+
+### Install/setup, via nix
+
+The project can be built and run locally using nix, to reproduce the environment.
+1) Make sure to have nix installed (see [nixos.org/nix][nix]) and then
+1) `cd <project-dir>`
+1) run `nix-shell` (or simply `nix-shell`) and you should have the blog
+
+[nix]: http://nixos.org/nix/
