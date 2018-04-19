@@ -91,5 +91,8 @@ The project can be built and run locally using nix, to reproduce the environment
 1) Make sure to have nix installed (see [nixos.org/nix][nix]) and then
 1) `cd <project-dir>`
 1) run `nix-shell` (or simply `nix-shell`) and you should have the blog
+1) install all node modules using `npm install`
+1) prove that it works, `npm test`
+1) now you have a shell with a deterministic environment (incl. node version)
 
 [nix]: http://nixos.org/nix/
