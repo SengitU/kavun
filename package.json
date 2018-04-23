@@ -27,7 +27,7 @@
   "devDependencies": {
     "sinon": "^4.5.0"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "example": "example",
     "lib": "lib",
