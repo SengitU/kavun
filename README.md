@@ -79,11 +79,15 @@ spec('Example Spec', () => {
 
 Npm registry will be added soon.
 
-To contribute, clone the repository then;
+### Contribution
+
+Project requires NodeJS version 9 to be installed
+
+Install NodeJS 9 and then run following command to install dependencies;
 
 `npm i`
 
-To run the tests;
+Use following command to run the tests;
 
 `npm test`
 
