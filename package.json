@@ -2,9 +2,9 @@
   "name": "kavun",
   "version": "0.1.0",
   "description": "A test framework for Javascript",
-  "bin": "./lib/cli.js",
+  "bin": "./lib/kavun.js",
   "scripts": {
-    "test": "node lib/cli.js"
+    "test": "node lib/kavun.js"
   },
   "repository": {
     "type": "git",
