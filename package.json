@@ -2,6 +2,7 @@
   "name": "kavun",
   "version": "0.0.2",
   "description": "A test framework for Javascript",
+  "bin": "./lib/cli.js",
   "scripts": {
     "test": "node lib/cli.js"
   },
