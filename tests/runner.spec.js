@@ -16,7 +16,7 @@ spec('Runner', () => {
     const unitCollector = new UnitCollector();
     const description = 'test';
     const testFunction = () => {};
-    const execute = () => true;
+    const execute = () => ({result: true});
 
     unitCollector.addUnit(description, testFunction);
 
@@ -31,7 +31,7 @@ spec('Runner', () => {
     const specDescription = 'spec';
     const unitDescription = 'unit';
     const testFunction = () => {};
-    const execute = () => true;
+    const execute = () => ({result: true});
 
     unitCollector.addSpec(specDescription, () => {
       unitCollector.addUnit(unitDescription, testFunction);
@@ -49,7 +49,7 @@ spec('Runner', () => {
     const specDescription = 'spec';
     const unitDescription = 'unit';
     const testFunction = () => {};
-    const execute = () => Promise.resolve(true);
+    const execute = () => Promise.resolve({result: true});
 
     unitCollector.addSpec(specDescription, () => {
       unitCollector.addUnit(unitDescription, testFunction);
@@ -66,7 +66,10 @@ spec('Runner', () => {
     const unitCollector = new UnitCollector();
     const specDescription = 'spec';
     const unitDescription = 'unit';
-    const failureObj = {expected: 1, actual: 0};
+    const failureObj = {
+      result: false,
+      description: 'AssertionError: 0 == 1'
+    };
     const testFunction = () => {};
     const execute = () => (failureObj);
 
@@ -76,7 +79,7 @@ spec('Runner', () => {
 
     await runner(unitCollector, { reporter, execute });
 
-    assert(reporter.log.calledWith(`\tActual: ${failureObj.actual}, Expected: ${failureObj.expected}`));
+    assert(reporter.log.calledWith(failureObj.description));
   });
 
 });
