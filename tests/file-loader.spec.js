@@ -8,13 +8,11 @@ const mockLoader = fileLoader(loaderMock);
 
 spec('FileLoader', () => {
   unit('should load given files', () => {
-    const firstFile = `${__dirname}/test-files/1.spec.js`;
-    const secondFile = `${__dirname}/test-files/2.spec.js`;
+    const file = `${process.cwd()}/tests/file-loader.spec.js`;
+    
+    mockLoader.load(file);
 
-    mockLoader.loadFiles([firstFile, secondFile]);
-
-    assert(loaderMock.calledWith(firstFile));
-    assert(loaderMock.calledWith(secondFile));
+    assert(loaderMock.calledWith(file));
   });
 
   unit('should be able to load all specs inside of the given path', () => {
@@ -27,5 +25,4 @@ spec('FileLoader', () => {
     assert(loaderMock.calledWith(dirName('unit-collector.spec.js')));
     assert(loaderMock.calledWith(dirName('file-loader.spec.js')));
   });
-
 });
