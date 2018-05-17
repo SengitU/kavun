@@ -11,6 +11,10 @@ const reporter = {
   newLine: sinon.spy()
 };
 
+const process = { exit: sinon.spy() }
+
+const clearMocks = () => process.exit.resetHistory();
+
 spec('Runner', () => {
   unit('should execute single executable and report results for steps and overall to reporter', async () => {
     const unitCollector = new UnitCollector();
@@ -20,7 +24,7 @@ spec('Runner', () => {
 
     unitCollector.addUnit(description, testFunction);
 
-    await runner(unitCollector, { reporter, execute });
+    await runner(unitCollector, { reporter, execute, process });
 
     assert(reporter.step.calledWith(description, true));
     assert(reporter.result.calledWith(0, 1));
@@ -38,7 +42,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute });
+    await runner(unitCollector, { reporter, execute, process });
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -56,7 +60,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute });
+    await runner(unitCollector, { reporter, execute, process });
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -77,9 +81,47 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute });
+    await runner(unitCollector, { reporter, execute, process });
 
     assert(reporter.log.calledWith(failureObj.description));
+  });
+
+  unit("should exit process with the code 0 if tests are passed", async () => {
+    clearMocks();
+
+    const unitCollector = new UnitCollector();
+    const specDescription = "spec";
+    const unitDescription = "unit";
+    const successSpec = { result: true };
+    const testFunction = () => {};
+    const execute = () => successSpec;
+
+    unitCollector.addSpec(specDescription, () => {
+      unitCollector.addUnit(unitDescription, testFunction);
+    });
+
+    await runner(unitCollector, { reporter, execute, process });
+
+    assert(process.exit.calledWith(0));
+  });
+
+  unit("should exit process with the code 1 if any test is failed", async () => {
+    clearMocks();
+
+    const unitCollector = new UnitCollector();
+    const specDescription = "spec";
+    const unitDescription = "unit";
+    const failureObj = { result: false, description: "AssertionError: 0 == 1" };
+    const testFunction = () => {};
+    const execute = () => failureObj;
+
+    unitCollector.addSpec(specDescription, () => {
+      unitCollector.addUnit(unitDescription, testFunction);
+    });
+
+    await runner(unitCollector, { reporter, execute, process });
+
+    assert(process.exit.calledWith(1));
   });
 
 });
