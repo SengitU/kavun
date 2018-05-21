@@ -12,37 +12,45 @@ const { spec, unit } = require("../lib/index");
 const memory = [];
 
 const startTimer = (id) => {
-  memory[id] = {
-    start: process.hrtime()
-  }
+  memory[id] = process.hrtime();
 }
 
 const stopTimer = (id) => {
-  memory[id] = {
-    stop: process.hrtime()
-  }
+  const stopTime = process.hrtime();
+  const startTime = memory[id];
+  return calculateElapsedTime(startTime, stopTime);
 }
+
+const calculateElapsedTime = ([startSeconds, startNanoseconds], [stopSeconds, stopNanoseconds]) => {
+  const secondsToMiliseconds = (second) => startSeconds * Math.pow(10, 3);
+  const nanosecondsToMiliseconds = (nanosecond) => nanosecond * Math.pow(10, -6);
+  
+  const startInMiliseconds = secondsToMiliseconds(startSeconds) + nanosecondsToMiliseconds(startNanoseconds);
+  const stopInMiliseconds = secondsToMiliseconds(stopSeconds) + nanosecondsToMiliseconds(stopNanoseconds);
+
+  return stopInMiliseconds - startInMiliseconds;
+}
+
 
 spec('TimeTracker', () => {
   spec('startTimer', () => {
-    unit('should add provided key cache with start values', () => {
     unit('should add provided key to the cache with start values', () => {
       const id = "random-id";
       
       startTimer(id);
 
-      assert.notEqual(memory[id].start, undefined);
-      assert.equal(memory[id].start.length, 2);
+      assert.notEqual(memory[id], undefined);
+      assert.equal(memory[id].length, 2);
     });
   });
 
   spec("stopTimer", () => {
-    unit("should add end values to the provided key in the cache", () => {
+    unit('should return elapsed time in miliseconds', () => {
       const id = "random-id";
 
-      stopTimer(id);
-
-      assert.notEqual(memory[id].stop, undefined);
-      assert.equal(memory[id].stop.length, 2);
+      const elapsedTime = stopTimer(id);
+      console.log(elapsedTime)
+      assert(elapsedTime > 0)
     });
+  });
 });
