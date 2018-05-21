@@ -27,7 +27,7 @@ spec('Reporter', () => {
   });
 
   spec('Step', () => {
-    unit('should add check mark for succeeded tests', () => {
+    unit('should add check mark and elapsed time for succeeded tests', () => {
       const description = 'test';
       const elapsedTime = 123.1221;
       mockedReporter.step(description, true, elapsedTime);
@@ -35,20 +35,21 @@ spec('Reporter', () => {
       assert(outputDevice.log.calledWith('test => ✓ in 123.12ms'))
     });
 
-    unit('should add cross mark for failed tests', () => {
-      const description = 'test';
+    unit("should add cross mark and elapsed time for failed tests", () => {
+      const description = "test";
       const elapsedTime = 123.1221;
       mockedReporter.step(description, false, elapsedTime);
 
-      assert(outputDevice.log.calledWith('test => x in 123.12ms'))
+      assert(outputDevice.log.calledWith("test => x in 123.12ms"));
     });
   });
 
   spec('Result', () => {
-    unit('should print number of successes and failures', () => {
-      mockedReporter.result(3, 5);
+    unit('should print number of successes and failures with elapsed time', () => {
+      const elapsedTime = 123.1221;
+      mockedReporter.result(3, 5, elapsedTime);
 
-      assert(outputDevice.log.calledWith('3 failed, 5 succeeded'))
+      assert(outputDevice.log.calledWith('3 failed, 5 succeeded in 123.12ms'))
     });
   });
 });
