@@ -72,7 +72,7 @@ spec('Runner', () => {
     const unitDescription = 'unit';
     const failureObj = {
       result: false,
-      description: 'AssertionError: 0 == 1'
+      errorMessage: 'AssertionError: 0 == 1'
     };
     const testFunction = () => {};
     const execute = () => (failureObj);

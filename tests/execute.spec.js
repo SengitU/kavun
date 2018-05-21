@@ -13,7 +13,7 @@ spec('execute', () => {
       const failingExecutable = () => assert.equal(0, 1);
       const failureObj = {
         result: false,
-        description: `AssertionError: 0 == 1`
+        errorMessage: `AssertionError: 0 == 1`
       };
       await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
     });
@@ -22,7 +22,7 @@ spec('execute', () => {
       const failingExecutable = () => new Promise((resolve) => resolve(assert.equal(0, 1)));
       const failureObj = {
         result: false,
-        description: `AssertionError: 0 == 1`
+        errorMessage: `AssertionError: 0 == 1`
       };
       await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
     });
@@ -33,7 +33,7 @@ spec('execute', () => {
       const referrenceErrorExecutable = () => assert(notDefined);
       const failureObj = {
         result: false,
-        reason: 'ReferenceError: notDefined is not defined'
+        errorMessage: 'ReferenceError: notDefined is not defined'
       }
       const actualFailureObj = await execute(referrenceErrorExecutable);
       
