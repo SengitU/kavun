@@ -8,6 +8,20 @@ spec('execute', () => {
     await execute(succeedingExecutable).then(res => assert(res.result));
   });
 
+  unit("should return elapsedTime for succeeding executable", async () => {
+    const succeedingExecutable = () => assert.equal(1, 1);
+    const { elapsedTime } = await execute(succeedingExecutable);
+
+    assert.notEqual(elapsedTime, undefined)
+  });
+
+  unit("should return elapsedTime for failing executable", async () => {
+    const failingExecutable = () => assert.equal(1, 0);
+    const { elapsedTime } = await execute(failingExecutable);
+
+    assert.notEqual(elapsedTime, undefined);
+  });
+
   spec('Assertion Error', () => {
     unit('should return expected and actual values for failing executable', async () => {
       const failingExecutable = () => assert.equal(0, 1);
@@ -15,7 +29,10 @@ spec('execute', () => {
         result: false,
         errorMessage: `AssertionError: 0 == 1`
       };
-      await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
+      const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
+      
+      assert.equal(actualResult, failureObj.result);
+      assert.equal(actualErrorMessage, failureObj.errorMessage);
     });
   
     unit('should be able to execute async functions', async () => {
@@ -24,7 +41,10 @@ spec('execute', () => {
         result: false,
         errorMessage: `AssertionError: 0 == 1`
       };
-      await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
+      const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
+      
+      assert.equal(actualResult, failureObj.result);
+      assert.equal(actualErrorMessage, failureObj.errorMessage);
     });
   });
 
@@ -35,9 +55,9 @@ spec('execute', () => {
         result: false,
         errorMessage: 'ReferenceError: notDefined is not defined'
       }
-      const actualFailureObj = await execute(referrenceErrorExecutable);
+      const { result: actualResult } = await execute(referrenceErrorExecutable);
       
-      assert.equal(failureObj.result, actualFailureObj.result);
+      assert.equal(actualResult, failureObj.result);
     });
   });
 });
