@@ -4,6 +4,10 @@
 
 Kavun is a light weight spec runner library for Javascript.
 
+### Installation
+
+`npm install kavun`
+
 ### Usage Examples
 
 #### Unit
@@ -76,8 +80,6 @@ spec('Example Spec', () => {
 });
 
 ```
-
-Npm registry will be added soon.
 
 ### Contribution
 
