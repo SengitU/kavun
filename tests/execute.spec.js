@@ -8,6 +8,12 @@ spec('execute', () => {
     await execute(succeedingExecutable).then(res => assert(res.result));
   });
 
+  unit('should return elapsedTime for succeeded test', async () => {
+    const succeedingExecutable = () => assert.equal(1, 1);
+    const { elapsedTime } = await execute(succeedingExecutable);
+    assert(elapsedTime && elapsedTime > 0);
+  })
+
   spec('Assertion Error', () => {
     unit('should return expected and actual values for failing executable', async () => {
       const failingExecutable = () => assert.equal(0, 1);
@@ -15,7 +21,6 @@ spec('execute', () => {
         result: false,
         errorMessage: `AssertionError: 0 == 1`
       };
-      await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
       const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
       
       assert.equal(actualResult, failureObj.result);
@@ -28,7 +33,6 @@ spec('execute', () => {
         result: false,
         errorMessage: `AssertionError: 0 == 1`
       };
-      await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
       const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
       
       assert.equal(actualResult, failureObj.result);
@@ -43,10 +47,8 @@ spec('execute', () => {
         result: false,
         errorMessage: 'ReferenceError: notDefined is not defined'
       }
-      const actualFailureObj = await execute(referrenceErrorExecutable);
       const { result: actualResult } = await execute(referrenceErrorExecutable);
       
-      assert.equal(failureObj.result, actualFailureObj.result);
       assert.equal(actualResult, failureObj.result);
     });
   });
