@@ -16,6 +16,10 @@ spec('execute', () => {
         errorMessage: `AssertionError: 0 == 1`
       };
       await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
+      const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
+      
+      assert.equal(actualResult, failureObj.result);
+      assert.equal(actualErrorMessage, failureObj.errorMessage);
     });
   
     unit('should be able to execute async functions', async () => {
@@ -25,6 +29,10 @@ spec('execute', () => {
         errorMessage: `AssertionError: 0 == 1`
       };
       await execute(failingExecutable).then(res => assert.deepEqual(failureObj, res));
+      const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
+      
+      assert.equal(actualResult, failureObj.result);
+      assert.equal(actualErrorMessage, failureObj.errorMessage);
     });
   });
 
@@ -36,8 +44,10 @@ spec('execute', () => {
         errorMessage: 'ReferenceError: notDefined is not defined'
       }
       const actualFailureObj = await execute(referrenceErrorExecutable);
+      const { result: actualResult } = await execute(referrenceErrorExecutable);
       
       assert.equal(failureObj.result, actualFailureObj.result);
+      assert.equal(actualResult, failureObj.result);
     });
   });
 });
