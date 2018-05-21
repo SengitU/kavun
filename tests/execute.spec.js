@@ -8,12 +8,6 @@ spec('execute', () => {
     await execute(succeedingExecutable).then(res => assert(res.result));
   });
 
-  unit('should return elapsedTime for succeeded test', async () => {
-    const succeedingExecutable = () => assert.equal(1, 1);
-    const { elapsedTime } = await execute(succeedingExecutable);
-    assert(elapsedTime && elapsedTime > 0);
-  })
-
   spec('Assertion Error', () => {
     unit('should return expected and actual values for failing executable', async () => {
       const failingExecutable = () => assert.equal(0, 1);
