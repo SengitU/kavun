@@ -21,7 +21,7 @@ spec('TimeTracker', () => {
       const id = "random-id";
 
       const elapsedTime = stopTimer(id, memory);
-      console.log(elapsedTime)
+
       assert(elapsedTime > 0)
     });
   });
