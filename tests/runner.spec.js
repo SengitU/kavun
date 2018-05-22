@@ -12,6 +12,7 @@ const reporter = {
 };
 
 const process = { exit: sinon.spy() }
+const pid = 1;
 
 const clearMocks = () => process.exit.resetHistory();
 
@@ -24,7 +25,7 @@ spec('Runner', () => {
 
     unitCollector.addUnit(description, testFunction);
 
-    await runner(unitCollector, { reporter, execute, process });
+    await runner(unitCollector, pid, { reporter, execute, process });
 
     assert(reporter.step.calledWith(description, true));
     assert(reporter.result.calledWith(0, 1));
@@ -42,7 +43,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute, process });
+    await runner(unitCollector, pid, { reporter, execute, process });
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -60,7 +61,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute, process });
+    await runner(unitCollector, pid, { reporter, execute, process });
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -81,7 +82,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute, process });
+    await runner(unitCollector, pid, { reporter, execute, process });
 
     assert(reporter.log.calledWith(failureObj.description));
   });
@@ -100,7 +101,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute, process });
+    await runner(unitCollector, pid, { reporter, execute, process });
 
     assert(process.exit.calledWith(0));
   });
@@ -119,7 +120,7 @@ spec('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, { reporter, execute, process });
+    await runner(unitCollector, pid, { reporter, execute, process });
 
     assert(process.exit.calledWith(1));
   });
