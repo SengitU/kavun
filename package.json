@@ -1,6 +1,6 @@
 {
   "name": "kavun",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A test framework for Javascript",
   "bin": "./lib/kavun.js",
   "scripts": {
