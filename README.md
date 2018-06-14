@@ -4,13 +4,13 @@
 
 Kavun is a light weight spec runner library for Javascript.
 
-### Installation
+## Installation
 
 `npm install kavun`
 
 ### Usage Examples
 
-#### Unit
+### Unit
 
 A sync example for unit
 
@@ -54,7 +54,21 @@ unit('Example async unit with async / await', async () => {
 });
 ```
 
-#### Spec
+### Timeout
+
+Timeout for each spec is 1500 miliseconds by default. To increase this amount, timeout attribute inside of the options object should be provided to the `unit`, as shown in the example;
+
+```js
+unit('Example unit with extended timeout', async () => {
+  const actual = () => new Promise(resolve => setTimeout(() => resolve(true), 1700));
+  const expected = true;
+
+  const result = await actual();
+  assert.equal(expected, result);
+}, { timeout: 2000 });
+```
+
+### Spec
 
 ```js
 const assert = require('assert');
@@ -81,7 +95,7 @@ spec('Example Spec', () => {
 
 ```
 
-### Contribution
+## Contribution
 
 Project requires NodeJS version 9 to be installed
 
@@ -93,7 +107,7 @@ Use following command to run the tests;
 
 `npm test`
 
-### Install/setup, via nix
+## Install/setup, via nix
 
 The project can be built and run locally using nix, to reproduce the environment.
 1) Make sure to have nix installed (see [nixos.org/nix][nix]) and then

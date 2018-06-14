@@ -97,6 +97,22 @@ spec('SpecCollector', () => {
     specCollector.withEachUnit(doWith);
   });
 
+  unit('collects timeout option for units.', () => {
+    const specCollector = new SpecCollector();
+    const description = 'my desc';
+    const timeout = 1000;
+    const referenceFunction = () => {};
+
+    specCollector.addUnit(description, referenceFunction, { timeout });
+
+    const doWith = (unit) => {
+      assert(unit.description, description);
+      assert(unit.testFunction, referenceFunction);
+      assert(unit.timeout, timeout);
+    };
+    specCollector.withEachUnit(doWith);
+  });
+
   unit('collects specs.', () => {
     const specCollector = new SpecCollector();
 

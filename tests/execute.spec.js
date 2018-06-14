@@ -39,12 +39,28 @@ spec('execute', () => {
       const failingExecutable = () => new Promise((resolve) => resolve(assert.equal(0, 1)));
       const failureObj = {
         result: false,
-        errorMessage: `AssertionError: 0 == 1`
+        errorMessage: 'AssertionError: 0 == 1'
       };
       const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
       
       assert.equal(actualResult, failureObj.result);
       assert.equal(actualErrorMessage, failureObj.errorMessage);
+    });
+  });
+
+  spec('Timeout Error', () => {
+    unit('should return timeout error after 1500ms', async () => {
+      const executionTimeout = 1000;
+      const timeoutErrorExecutable = () => new Promise(resolve => setTimeout(() => resolve(), 1200))
+      const failureObj = {
+        result: false,
+        errorMessage: `TimeoutError: Execution exceeded ${executionTimeout}ms`
+      };
+
+      const { result, errorMessage} = await execute(timeoutErrorExecutable, executionTimeout);
+
+      assert.equal(result, failureObj.result);
+      assert.equal(errorMessage, failureObj.errorMessage);
     });
   });
 
