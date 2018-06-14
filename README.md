@@ -55,6 +55,20 @@ unit('Example async unit with async / await', async () => {
 ```
 
 #### Spec
+### Timeout
+
+Timeout for each spec is 1500 miliseconds by default. To increase this amount, timeout attribute inside of the options object should be provided to the `unit`, as shown in the example;
+
+```js
+unit('Example unit with extended timeout', async () => {
+  const actual = () => new Promise(resolve => setTimeout(() => resolve(true), 1700));
+  const expected = true;
+
+  const result = await actual();
+  assert.equal(expected, result);
+}, { timeout: 2000 });
+```
+
 
 ```js
 const assert = require('assert');
