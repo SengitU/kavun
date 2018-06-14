@@ -39,7 +39,7 @@ spec('execute', () => {
       const failingExecutable = () => new Promise((resolve) => resolve(assert.equal(0, 1)));
       const failureObj = {
         result: false,
-        errorMessage: `AssertionError: 0 == 1`
+        errorMessage: 'AssertionError: 0 == 1'
       };
       const { result: actualResult, errorMessage: actualErrorMessage } = await execute(failingExecutable);
       
