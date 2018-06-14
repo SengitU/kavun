@@ -48,6 +48,22 @@ spec('execute', () => {
     });
   });
 
+  spec('Timeout Error', () => {
+    unit('should return timeout error after 1500ms', async () => {
+      const executionTimeout = 1000;
+      const timeoutErrorExecutable = () => new Promise(resolve => setTimeout(() => resolve(), 1200))
+      const failureObj = {
+        result: false,
+        errorMessage: `TimeoutError: Execution exceeded ${executionTimeout}ms`
+      };
+
+      const { result, errorMessage} = await execute(timeoutErrorExecutable, executionTimeout);
+
+      assert.equal(result, failureObj.result);
+      assert.equal(errorMessage, failureObj.errorMessage);
+    });
+  });
+
   spec('Other Errors', () => {
     unit('should return description and stack trace', async () => {
       const referrenceErrorExecutable = () => assert(notDefined);
