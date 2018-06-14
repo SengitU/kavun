@@ -21,3 +21,11 @@ unit('Example async unit without async/await', () => {
 
   return actual().then(result => assert.equal(expected, result));
 });
+
+unit('Example unit with extended timeout', async () => {
+  const actual = () => new Promise(resolve => setTimeout(() => resolve(true), 1700));
+  const expected = true;
+
+  const result = await actual();
+  assert.equal(expected, result);
+}, { timeout: 2000 });
