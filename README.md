@@ -46,7 +46,7 @@ An async example with Promise, don't forget to return the `promise`
 const assert = require('assert');
 const { unit } = require('kavun');
 
-unit('Example async unit with async / await', async () => {
+unit('Example async unit with async / await', () => {
   const actual = () => new Promise(resolve => resolve(true));
   const expected = true;
   
