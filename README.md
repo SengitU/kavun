@@ -4,6 +4,12 @@
 
 Kavun is a light weight spec runner library for Javascript.
 
+## Real Kavun
+
+The project is named after my elder cat Kavun.
+
+![Kavun](https://eksiup.com/359b58b1b84)
+
 ## Installation
 
 `npm install kavun`
