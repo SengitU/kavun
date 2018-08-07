@@ -8,7 +8,7 @@ Kavun is a light weight spec runner library for Javascript.
 
 The project is named after my elder cat Kavun.
 
-![](kavun_tiny.jpg)
+![Kavun](kavun_tiny.jpg)
 
 ## Installation
 
