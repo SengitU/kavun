@@ -4,11 +4,11 @@
 
 Kavun is a light weight spec runner library for Javascript.
 
-## Real Kavun
+## The Real Kavun
 
 The project is named after my elder cat Kavun.
 
-![Kavun](https://eksiup.com/359b58b1b84)
+![Kavun](kavun.jpg)
 
 ## Installation
 
@@ -20,7 +20,7 @@ The project is named after my elder cat Kavun.
 
 A sync example for unit
 
-```js
+```jskavun.jpg
 const assert = require('assert');
 const { unit } = require('kavun');
 
