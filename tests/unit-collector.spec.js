@@ -53,11 +53,11 @@ spec('A `SpecCollector`', () => {
     });
   });
 
-  unit('When code inside spec throws, specCollector should stop.', () => {
+  unit('when a spec throws, it lets the error bubble up', () => {
     const specCollector = new SpecCollector();
 
     const fn = () => {
-      specCollector.addSpec('spec with one unit', () => {
+      specCollector.addSpec('spec that throws', () => {
         throw Error();
       });
     };
