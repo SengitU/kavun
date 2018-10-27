@@ -5,56 +5,6 @@ const SpecCollector = require('../lib/unit-collector');
 const noop = () => {};
 
 spec('A `SpecCollector`', () => {
-  spec('provides statistics', () => {
-    spec('the number of units (via `numberOfUnits`), when provided', () => {
-      unit('1 unit, it finds 1 unit.', () => {
-        const specCollector = new SpecCollector();
-        specCollector.addUnit('1 unit', () => {});
-    
-        assert.equal(specCollector.numberOfUnits, 1);
-      });
-    
-      unit('multiple units, it finds them.', () => {
-        const specCollector = new SpecCollector();
-        specCollector.addUnit('1 unit', () => {});
-        specCollector.addUnit('1 unit', () => {});
-    
-        assert.equal(specCollector.numberOfUnits, 2);
-      });
-    
-      unit('unit inside spec, it finds the unit.', () => {
-        const specCollector = new SpecCollector();
-        specCollector.addSpec('spec with one unit', () => {
-          specCollector.addUnit('1 unit', () => {});
-        });
-    
-        assert.equal(specCollector.numberOfUnits, 1);
-      });
-    });
-  
-    spec('the number of specs (via `numberOfSpecs`), when provided', () => {
-      unit('a unit inside a spec, it finds the spec.', () => {
-        const specCollector = new SpecCollector();
-        specCollector.addSpec('spec with one unit', () => {
-          specCollector.addUnit('1 unit', () => {});
-        });
-    
-        assert.equal(specCollector.numberOfSpecs, 1);
-      });
-      
-      unit('a unit nested inside two specs, it finds two specs.', () => {
-        const specCollector = new SpecCollector();
-        specCollector.addSpec('spec with one spec and unit', () => {
-          specCollector.addSpec('spec with one unit', () => {
-            specCollector.addUnit('1 unit', () => {});
-          });
-        });
-    
-        assert.equal(specCollector.numberOfSpecs, 2);
-      });
-    });
-  });
-
   unit('when a spec throws, it lets the error bubble up', () => {
     const specCollector = new SpecCollector();
     const fn = () => {
@@ -140,4 +90,55 @@ spec('A `SpecCollector`', () => {
       });
     });
   });
+  
+  spec('provides statistics', () => {
+    spec('the number of units (via `numberOfUnits`), when provided', () => {
+      unit('1 unit, it finds 1 unit.', () => {
+        const specCollector = new SpecCollector();
+        specCollector.addUnit('1 unit', () => {});
+    
+        assert.equal(specCollector.numberOfUnits, 1);
+      });
+    
+      unit('multiple units, it finds them.', () => {
+        const specCollector = new SpecCollector();
+        specCollector.addUnit('1 unit', () => {});
+        specCollector.addUnit('1 unit', () => {});
+    
+        assert.equal(specCollector.numberOfUnits, 2);
+      });
+    
+      unit('unit inside spec, it finds the unit.', () => {
+        const specCollector = new SpecCollector();
+        specCollector.addSpec('spec with one unit', () => {
+          specCollector.addUnit('1 unit', () => {});
+        });
+    
+        assert.equal(specCollector.numberOfUnits, 1);
+      });
+    });
+  
+    spec('the number of specs (via `numberOfSpecs`), when provided', () => {
+      unit('a unit inside a spec, it finds the spec.', () => {
+        const specCollector = new SpecCollector();
+        specCollector.addSpec('spec with one unit', () => {
+          specCollector.addUnit('1 unit', () => {});
+        });
+    
+        assert.equal(specCollector.numberOfSpecs, 1);
+      });
+      
+      unit('a unit nested inside two specs, it finds two specs.', () => {
+        const specCollector = new SpecCollector();
+        specCollector.addSpec('spec with one spec and unit', () => {
+          specCollector.addSpec('spec with one unit', () => {
+            specCollector.addUnit('1 unit', () => {});
+          });
+        });
+    
+        assert.equal(specCollector.numberOfSpecs, 2);
+      });
+    });
+  });
+  
 });
