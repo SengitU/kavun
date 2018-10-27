@@ -64,16 +64,22 @@ spec('A `SpecCollector`', () => {
   });
 
   spec('collecting units (tests) via `addUnit()`', () => {
-    unit('stores the unit`s description', () => {
+    const addUnit = (desc) => {
       const specCollector = new SpecCollector();
-      const desc = 'description';
-  
+
       specCollector.addUnit(desc, () => {});
-  
-      const hasUnitDescription = unit => {
-        assert.equal(unit.description, desc);
-      };
-      specCollector.withEachUnit(hasUnitDescription);
+      return specCollector;
+    };
+    const descriptionsOf = (specCollector) => {
+      const descriptions = [];
+      specCollector.withEachUnit(unit => descriptions.push(unit.description));
+      return descriptions;
+    };
+
+    unit('stores the unit`s description', () => {
+      const desc = 'description';
+      const specCollector = addUnit(desc);
+      assert.deepEqual(descriptionsOf(specCollector), [desc]);
     });
   
     unit('stores empty descriptions', () => {
