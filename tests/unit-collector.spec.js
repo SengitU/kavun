@@ -68,7 +68,6 @@ spec('A `SpecCollector`', () => {
   spec('collecting units (tests) via `addUnit()`', () => {
     const addUnit = (desc, testFn = noop, options = {}) => {
       const specCollector = new SpecCollector();
-
       specCollector.addUnit(desc, testFn, options);
       return specCollector;
     };
@@ -114,15 +113,13 @@ spec('A `SpecCollector`', () => {
       const description = 'my desc';
       const timeout = 1000;
       const referenceFunction = () => {};
-  
       const specCollector = addUnit(description, referenceFunction, { timeout });
   
-      const doWith = (unit) => {
-        assert(unit.description, description);
-        assert(unit.testFunction, referenceFunction);
+      specCollector.withEachUnit(unit => {
         assert(unit.timeout, timeout);
-      };
-      specCollector.withEachUnit(doWith);
+      });
+      assert.deepEqual(descriptionsOf(specCollector), [description]);
+      assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
     });
   });
   
