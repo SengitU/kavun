@@ -123,22 +123,21 @@ spec('A `SpecCollector`', () => {
     });
   });
   
-  unit('stores specs', () => {
-    const specCollector = new SpecCollector();
-
-    const noop = () => {};
-    const description = 'unit';
-    specCollector.addSpec('spec', () => {
-      specCollector.addSpec('spec1', () => {
-        specCollector.addUnit(description, noop);
+  spec('collecting specs (suites) via `addSpec()`', () => {
+    unit('stores specs', () => {
+      const specCollector = new SpecCollector();
+      const description = 'unit';
+      specCollector.addSpec('spec', () => {
+        specCollector.addSpec('spec1', () => {
+          specCollector.addUnit(description, noop);
+        });
+      });
+  
+      specCollector.withEachUnit(unit => {
+        assert(unit.specs, ['spec', 'spec1']);
+        assert(unit.description, description);
+        assert(unit.testFunction, noop);
       });
     });
-
-    const doWith = (unit) => {
-      assert(unit.specs, ['spec', 'spec1']);
-      assert(unit.description, description);
-      assert(unit.testFunction, noop);
-    };
-    specCollector.withEachUnit(doWith);
   });
 });
