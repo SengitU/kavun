@@ -55,7 +55,6 @@ spec('A `SpecCollector`', () => {
 
   unit('when a spec throws, it lets the error bubble up', () => {
     const specCollector = new SpecCollector();
-
     const fn = () => {
       specCollector.addSpec('spec that throws', () => {
         throw Error();
@@ -64,72 +63,74 @@ spec('A `SpecCollector`', () => {
     assert.throws(fn);
   });
 
-  unit('collects descriptions', () => {
-    const specCollector = new SpecCollector();
-    const desc = 'description';
-
-    specCollector.addUnit(desc, () => {});
-
-    const hasUnitDescription = unit => {
-      assert.equal(unit.description, desc);
-    };
-    specCollector.withEachUnit(hasUnitDescription);
+  spec('collecting units (tests) via `addUnit()`', () => {
+    unit('stores the unit`s description', () => {
+      const specCollector = new SpecCollector();
+      const desc = 'description';
+  
+      specCollector.addUnit(desc, () => {});
+  
+      const hasUnitDescription = unit => {
+        assert.equal(unit.description, desc);
+      };
+      specCollector.withEachUnit(hasUnitDescription);
+    });
+  
+    unit('stores empty descriptions', () => {
+      const specCollector = new SpecCollector();
+      const emptyDesc = '';
+  
+      specCollector.addUnit(emptyDesc, () => {});
+  
+      const hasUnitDescription = unit => {
+        assert.equal(unit.description, emptyDesc);
+      };
+      specCollector.withEachUnit(hasUnitDescription);
+    });
+  
+    unit('stores the unit`s function', () => {
+      const specCollector = new SpecCollector();
+      const referenceFunction = () => {};
+  
+      specCollector.addUnit('', referenceFunction);
+  
+      const hasUnitFunction = unit => {
+        assert.equal(unit.testFunction, referenceFunction);
+      };
+      specCollector.withEachUnit(hasUnitFunction);
+    });
+  
+    unit('collects unit`s description and function', () => {
+      const specCollector = new SpecCollector();
+      const description = 'my desc';
+      const referenceFunction = () => {};
+  
+      specCollector.addUnit(description, referenceFunction);
+  
+      const doWith = (unit) => {
+        assert(unit.description, description);
+        assert(unit.testFunction, referenceFunction);
+      };
+      specCollector.withEachUnit(doWith);
+    });
+  
+    unit('collects timeout option for units', () => {
+      const specCollector = new SpecCollector();
+      const description = 'my desc';
+      const timeout = 1000;
+      const referenceFunction = () => {};
+  
+      specCollector.addUnit(description, referenceFunction, { timeout });
+  
+      const doWith = (unit) => {
+        assert(unit.description, description);
+        assert(unit.testFunction, referenceFunction);
+        assert(unit.timeout, timeout);
+      };
+      specCollector.withEachUnit(doWith);
+    });
   });
-
-  unit('collects empty descriptions', () => {
-    const specCollector = new SpecCollector();
-    const emptyDesc = '';
-
-    specCollector.addUnit(emptyDesc, () => {});
-
-    const hasUnitDescription = unit => {
-      assert.equal(unit.description, emptyDesc);
-    };
-    specCollector.withEachUnit(hasUnitDescription);
-  });
-
-  unit('collects functions', () => {
-    const specCollector = new SpecCollector();
-    const referenceFunction = () => {};
-
-    specCollector.addUnit('', referenceFunction);
-
-    const hasUnitFunction = unit => {
-      assert.equal(unit.testFunction, referenceFunction);
-    };
-    specCollector.withEachUnit(hasUnitFunction);
-  });
-
-  unit('collects unit (description+fn).', () => {
-    const specCollector = new SpecCollector();
-    const description = 'my desc';
-    const referenceFunction = () => {};
-
-    specCollector.addUnit(description, referenceFunction);
-
-    const doWith = (unit) => {
-      assert(unit.description, description);
-      assert(unit.testFunction, referenceFunction);
-    };
-    specCollector.withEachUnit(doWith);
-  });
-
-  unit('collects timeout option for units.', () => {
-    const specCollector = new SpecCollector();
-    const description = 'my desc';
-    const timeout = 1000;
-    const referenceFunction = () => {};
-
-    specCollector.addUnit(description, referenceFunction, { timeout });
-
-    const doWith = (unit) => {
-      assert(unit.description, description);
-      assert(unit.testFunction, referenceFunction);
-      assert(unit.timeout, timeout);
-    };
-    specCollector.withEachUnit(doWith);
-  });
-
+  
   unit('collects specs.', () => {
     const specCollector = new SpecCollector();
 
