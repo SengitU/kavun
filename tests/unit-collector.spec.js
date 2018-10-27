@@ -103,7 +103,7 @@ spec('A `SpecCollector`', () => {
       assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
     });
   
-    unit('collects unit`s description and function', () => {
+    unit('stores unit`s description and function', () => {
       const description = 'my desc';
       const referenceFunction = () => {};
   
@@ -112,7 +112,7 @@ spec('A `SpecCollector`', () => {
       assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
     });
   
-    unit('collects timeout option for units', () => {
+    unit('stores timeout option for units', () => {
       const description = 'my desc';
       const timeout = 1000;
       const referenceFunction = () => {};
@@ -123,7 +123,7 @@ spec('A `SpecCollector`', () => {
     });
   });
   
-  unit('collects specs.', () => {
+  unit('stores specs', () => {
     const specCollector = new SpecCollector();
 
     const noop = () => {};
