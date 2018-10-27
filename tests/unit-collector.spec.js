@@ -2,38 +2,40 @@ const assert = require('assert');
 const { spec, unit } = require('../lib');
 const SpecCollector = require('../lib/unit-collector');
 
-spec('SpecCollector', () => {
-  unit('Providing 1 unit, SpecCollector finds 1 unit.', () => {
-    const specCollector = new SpecCollector();
-    specCollector.addUnit('1 unit', () => {});
-
-    assert.equal(specCollector.numberOfUnits, 1);
-  });
-
-  unit('Providing multiple units, SpecCollector finds them.', () => {
-    const specCollector = new SpecCollector();
-    specCollector.addUnit('1 unit', () => {});
-    specCollector.addUnit('1 unit', () => {});
-
-    assert.equal(specCollector.numberOfUnits, 2);
-  });
-
-  unit('Providing unit inside spec, SpecCollector finds the unit.', () => {
-    const specCollector = new SpecCollector();
-    specCollector.addSpec('spec with one unit', () => {
+spec('Given a `SpecCollector`', () => {
+  spec('provides statistics, when provided', () => {
+    unit('1 unit, it finds 1 unit.', () => {
+      const specCollector = new SpecCollector();
       specCollector.addUnit('1 unit', () => {});
+  
+      assert.equal(specCollector.numberOfUnits, 1);
     });
-
-    assert.equal(specCollector.numberOfUnits, 1);
-  });
-
-  unit('Providing unit inside spec, SpecCollector finds the spec.', () => {
-    const specCollector = new SpecCollector();
-    specCollector.addSpec('spec with one unit', () => {
+  
+    unit('multiple units, it finds them.', () => {
+      const specCollector = new SpecCollector();
       specCollector.addUnit('1 unit', () => {});
+      specCollector.addUnit('1 unit', () => {});
+  
+      assert.equal(specCollector.numberOfUnits, 2);
     });
-
-    assert.equal(specCollector.numberOfSpecs, 1);
+  
+    unit('unit inside spec, it finds the unit.', () => {
+      const specCollector = new SpecCollector();
+      specCollector.addSpec('spec with one unit', () => {
+        specCollector.addUnit('1 unit', () => {});
+      });
+  
+      assert.equal(specCollector.numberOfUnits, 1);
+    });
+  
+    unit('unit inside spec, it finds the spec.', () => {
+      const specCollector = new SpecCollector();
+      specCollector.addSpec('spec with one unit', () => {
+        specCollector.addUnit('1 unit', () => {});
+      });
+  
+      assert.equal(specCollector.numberOfSpecs, 1);
+    });
   });
 
   unit('When code inside spec throws, specCollector should stop.', () => {
