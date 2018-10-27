@@ -21,13 +21,11 @@ spec('A `SpecCollector`', () => {
       specCollector.addUnit(desc, testFn, options);
       return specCollector;
     };
-
     const valuesForAttribute = (specCollector, attribute) => {
       const values = [];
       specCollector.withEachUnit(unit => values.push(unit[attribute]));
       return values;
     };
-
     const descriptionsOf = (specCollector) =>
       valuesForAttribute(specCollector, 'description');
     const testFunctionsOf = (specCollector) =>
@@ -56,7 +54,6 @@ spec('A `SpecCollector`', () => {
     unit('stores unit`s description and function', () => {
       const description = 'my desc';
       const referenceFunction = () => {};
-  
       const specCollector = addUnit(description, referenceFunction);
       assert.deepEqual(descriptionsOf(specCollector), [description]);
       assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
@@ -82,7 +79,6 @@ spec('A `SpecCollector`', () => {
           specCollector.addUnit(description, noop);
         });
       });
-  
       specCollector.withEachUnit(unit => {
         assert(unit.specs, ['spec', 'spec1']);
         assert(unit.description, description);
@@ -96,7 +92,6 @@ spec('A `SpecCollector`', () => {
       unit('1 unit, it finds 1 unit.', () => {
         const specCollector = new SpecCollector();
         specCollector.addUnit('1 unit', () => {});
-    
         assert.equal(specCollector.numberOfUnits, 1);
       });
     
@@ -104,7 +99,6 @@ spec('A `SpecCollector`', () => {
         const specCollector = new SpecCollector();
         specCollector.addUnit('1 unit', () => {});
         specCollector.addUnit('1 unit', () => {});
-    
         assert.equal(specCollector.numberOfUnits, 2);
       });
     
@@ -113,7 +107,6 @@ spec('A `SpecCollector`', () => {
         specCollector.addSpec('spec with one unit', () => {
           specCollector.addUnit('1 unit', () => {});
         });
-    
         assert.equal(specCollector.numberOfUnits, 1);
       });
     });
@@ -124,7 +117,6 @@ spec('A `SpecCollector`', () => {
         specCollector.addSpec('spec with one unit', () => {
           specCollector.addUnit('1 unit', () => {});
         });
-    
         assert.equal(specCollector.numberOfSpecs, 1);
       });
       
@@ -135,10 +127,8 @@ spec('A `SpecCollector`', () => {
             specCollector.addUnit('1 unit', () => {});
           });
         });
-    
         assert.equal(specCollector.numberOfSpecs, 2);
       });
     });
   });
-  
 });
