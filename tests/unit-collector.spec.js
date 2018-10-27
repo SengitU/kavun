@@ -39,6 +39,17 @@ spec('A `SpecCollector`', () => {
     
         assert.equal(specCollector.numberOfSpecs, 1);
       });
+      
+      unit('a unit nested inside two specs, it finds two specs.', () => {
+        const specCollector = new SpecCollector();
+        specCollector.addSpec('spec with one spec and unit', () => {
+          specCollector.addSpec('spec with one unit', () => {
+            specCollector.addUnit('1 unit', () => {});
+          });
+        });
+    
+        assert.equal(specCollector.numberOfSpecs, 2);
+      });
     });
   });
 
