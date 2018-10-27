@@ -131,4 +131,13 @@ spec('A `SpecCollector`', () => {
       });
     });
   });
+  
+  spec('API, implementation specifics', () => {
+    unit('`numberOfSpecs` can`t be modified', () => {
+      const specCollector = new SpecCollector();
+      specCollector.addSpec('', () => {});
+      specCollector.numberOfSpecs = 0;
+      assert.equal(specCollector.numberOfSpecs, 1);
+    });
+  });
 });
