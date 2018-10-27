@@ -2,6 +2,8 @@ const assert = require('assert');
 const { spec, unit } = require('../lib');
 const SpecCollector = require('../lib/unit-collector');
 
+const noop = () => {};
+
 spec('A `SpecCollector`', () => {
   spec('provides statistics', () => {
     spec('the number of units (via `numberOfUnits`), when provided', () => {
@@ -64,16 +66,21 @@ spec('A `SpecCollector`', () => {
   });
 
   spec('collecting units (tests) via `addUnit()`', () => {
-    const addUnit = (desc) => {
+    const addUnit = (desc, testFn = noop, options = {}) => {
       const specCollector = new SpecCollector();
 
-      specCollector.addUnit(desc, () => {});
+      specCollector.addUnit(desc, testFn, options);
       return specCollector;
     };
     const descriptionsOf = (specCollector) => {
       const descriptions = [];
       specCollector.withEachUnit(unit => descriptions.push(unit.description));
       return descriptions;
+    };
+    const testFunctionsOf = (specCollector) => {
+      const testFunctions = [];
+      specCollector.withEachUnit(unit => testFunctions.push(unit.testFunction));
+      return testFunctions;
     };
 
     unit('stores the unit`s description', () => {
@@ -83,41 +90,24 @@ spec('A `SpecCollector`', () => {
     });
   
     unit('stores empty descriptions', () => {
-      const specCollector = new SpecCollector();
       const emptyDesc = '';
-  
-      specCollector.addUnit(emptyDesc, () => {});
-  
-      const hasUnitDescription = unit => {
-        assert.equal(unit.description, emptyDesc);
-      };
-      specCollector.withEachUnit(hasUnitDescription);
+      const specCollector = addUnit(emptyDesc);
+      assert.deepEqual(descriptionsOf(specCollector), [emptyDesc]);
     });
   
     unit('stores the unit`s function', () => {
-      const specCollector = new SpecCollector();
       const referenceFunction = () => {};
-  
-      specCollector.addUnit('', referenceFunction);
-  
-      const hasUnitFunction = unit => {
-        assert.equal(unit.testFunction, referenceFunction);
-      };
-      specCollector.withEachUnit(hasUnitFunction);
+      const specCollector = addUnit('', referenceFunction);
+      assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
     });
   
     unit('collects unit`s description and function', () => {
-      const specCollector = new SpecCollector();
       const description = 'my desc';
       const referenceFunction = () => {};
   
-      specCollector.addUnit(description, referenceFunction);
-  
-      const doWith = (unit) => {
-        assert(unit.description, description);
-        assert(unit.testFunction, referenceFunction);
-      };
-      specCollector.withEachUnit(doWith);
+      const specCollector = addUnit(description, referenceFunction);
+      assert.deepEqual(descriptionsOf(specCollector), [description]);
+      assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
     });
   
     unit('collects timeout option for units', () => {
