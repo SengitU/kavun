@@ -71,21 +71,19 @@ spec('A `SpecCollector`', () => {
       specCollector.addUnit(desc, testFn, options);
       return specCollector;
     };
-    const descriptionsOf = (specCollector) => {
-      const descriptions = [];
-      specCollector.withEachUnit(unit => descriptions.push(unit.description));
-      return descriptions;
+
+    const valuesForAttribute = (specCollector, attribute) => {
+      const values = [];
+      specCollector.withEachUnit(unit => values.push(unit[attribute]));
+      return values;
     };
-    const testFunctionsOf = (specCollector) => {
-      const testFunctions = [];
-      specCollector.withEachUnit(unit => testFunctions.push(unit.testFunction));
-      return testFunctions;
-    };
-    const timeoutsOf = (specCollector) => {
-      const timeouts = [];
-      specCollector.withEachUnit(unit => timeouts.push(unit.timeout));
-      return timeouts;
-    };
+
+    const descriptionsOf = (specCollector) =>
+      valuesForAttribute(specCollector, 'description');
+    const testFunctionsOf = (specCollector) =>
+      valuesForAttribute(specCollector, 'testFunction');
+    const timeoutsOf = (specCollector) =>
+      valuesForAttribute(specCollector, 'timeout');
 
     unit('stores the unit`s description', () => {
       const desc = 'description';
