@@ -111,12 +111,11 @@ spec('A `SpecCollector`', () => {
     });
   
     unit('collects timeout option for units', () => {
-      const specCollector = new SpecCollector();
       const description = 'my desc';
       const timeout = 1000;
       const referenceFunction = () => {};
   
-      specCollector.addUnit(description, referenceFunction, { timeout });
+      const specCollector = addUnit(description, referenceFunction, { timeout });
   
       const doWith = (unit) => {
         assert(unit.description, description);
