@@ -81,6 +81,11 @@ spec('A `SpecCollector`', () => {
       specCollector.withEachUnit(unit => testFunctions.push(unit.testFunction));
       return testFunctions;
     };
+    const timeoutsOf = (specCollector) => {
+      const timeouts = [];
+      specCollector.withEachUnit(unit => timeouts.push(unit.timeout));
+      return timeouts;
+    };
 
     unit('stores the unit`s description', () => {
       const desc = 'description';
@@ -114,12 +119,9 @@ spec('A `SpecCollector`', () => {
       const timeout = 1000;
       const referenceFunction = () => {};
       const specCollector = addUnit(description, referenceFunction, { timeout });
-  
-      specCollector.withEachUnit(unit => {
-        assert(unit.timeout, timeout);
-      });
       assert.deepEqual(descriptionsOf(specCollector), [description]);
       assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
+      assert.deepEqual(timeoutsOf(specCollector), [timeout]);
     });
   });
   
