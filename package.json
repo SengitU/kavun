@@ -4,7 +4,7 @@
   "description": "A test framework for Javascript",
   "bin": "./lib/kavun.js",
   "scripts": {
-    "test": "node lib/kavun.js"
+    "test": "node lib/kavun.js tests"
   },
   "repository": {
     "type": "git",
