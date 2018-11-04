@@ -88,18 +88,18 @@ describe('A `SpecCollector`', () => {
   });
   
   describe('provides statistics', () => {
-    describe('the number of units (via `numberOfUnits`), when provided', () => {
+    describe('the number of units (via `numberOfTests`), when provided', () => {
       it('1 unit, it finds 1 unit.', () => {
         const specCollector = new SpecCollector();
         specCollector.addUnit('1 unit', () => {});
-        assert.equal(specCollector.numberOfUnits, 1);
+        assert.equal(specCollector.numberOfTests, 1);
       });
     
       it('multiple units, it finds them.', () => {
         const specCollector = new SpecCollector();
         specCollector.addUnit('1 unit', () => {});
         specCollector.addUnit('1 unit', () => {});
-        assert.equal(specCollector.numberOfUnits, 2);
+        assert.equal(specCollector.numberOfTests, 2);
       });
     
       it('unit inside spec, it finds the unit.', () => {
@@ -107,7 +107,7 @@ describe('A `SpecCollector`', () => {
         specCollector.addSpec('spec with one unit', () => {
           specCollector.addUnit('1 unit', () => {});
         });
-        assert.equal(specCollector.numberOfUnits, 1);
+        assert.equal(specCollector.numberOfTests, 1);
       });
     });
   
