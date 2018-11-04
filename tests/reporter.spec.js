@@ -1,7 +1,7 @@
-const sinon = require('sinon');
-const assert = require('assert');
-const reporter = require('../lib/reporters/index');
-const { describe, it } = require('../lib');
+import sinon from 'sinon';
+import assert from 'assert';
+import { describe, it } from '../lib';
+import { reporter } from '../lib/reporters/index';
 
 const outputDevice = {
   log: sinon.spy()

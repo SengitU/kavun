@@ -2,9 +2,9 @@
   "name": "kavun",
   "version": "1.0.0",
   "description": "A test framework for Javascript",
-  "bin": "./lib/kavun.js",
+  "bin": "node -r esm ./lib/kavun.js",
   "scripts": {
-    "test": "node lib/kavun.js ."
+    "test": "node -r esm lib/kavun.js ."
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "test": "tests"
   },
   "dependencies": {
+    "esm": "^3.0.84",
     "uuid": "^3.2.1"
   }
 }

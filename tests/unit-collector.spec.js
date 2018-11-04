@@ -1,12 +1,12 @@
-const assert = require('assert');
-const { describe, it } = require('../lib');
-const SpecCollector = require('../lib/unit-collector');
+import assert from 'assert';
+import { describe, it } from '../lib/index.js';
+import { UnitCollector } from '../lib/unit-collector';
 
 const noop = () => {};
 
 describe('A `SpecCollector`', () => {
   it('when a spec throws, it lets the error bubble up', () => {
-    const specCollector = new SpecCollector();
+    const specCollector = new UnitCollector();
     const fn = () => {
       specCollector.addSpec('spec that throws', () => {
         throw Error();
@@ -17,7 +17,7 @@ describe('A `SpecCollector`', () => {
 
   describe('collecting tests (tests) via `addUnit()`', () => {
     const addUnit = (desc, testFn = noop, options = {}) => {
-      const specCollector = new SpecCollector();
+      const specCollector = new UnitCollector();
       specCollector.addUnit(desc, testFn, options);
       return specCollector;
     };
@@ -72,7 +72,7 @@ describe('A `SpecCollector`', () => {
   
   describe('collecting specs (suites) via `addSpec()`', () => {
     it('stores specs', () => {
-      const specCollector = new SpecCollector();
+      const specCollector = new UnitCollector();
       const description = 'unit';
       specCollector.addSpec('spec', () => {
         specCollector.addSpec('spec1', () => {
@@ -90,20 +90,20 @@ describe('A `SpecCollector`', () => {
   describe('provides statistics', () => {
     describe('the number of tests (via `numberOfTests`), when provided', () => {
       it('1 unit, it finds 1 unit.', () => {
-        const specCollector = new SpecCollector();
+        const specCollector = new UnitCollector();
         specCollector.addUnit('1 unit', () => {});
         assert.equal(specCollector.numberOfTests, 1);
       });
     
       it('multiple tests, it finds them.', () => {
-        const specCollector = new SpecCollector();
+        const specCollector = new UnitCollector();
         specCollector.addUnit('1 unit', () => {});
         specCollector.addUnit('1 unit', () => {});
         assert.equal(specCollector.numberOfTests, 2);
       });
     
       it('unit inside spec, it finds the unit.', () => {
-        const specCollector = new SpecCollector();
+        const specCollector = new UnitCollector();
         specCollector.addSpec('spec with one unit', () => {
           specCollector.addUnit('1 unit', () => {});
         });
@@ -113,7 +113,7 @@ describe('A `SpecCollector`', () => {
   
     describe('the number of specs (via `numberOfSuites`), when provided', () => {
       it('a unit inside a spec, it finds the spec.', () => {
-        const specCollector = new SpecCollector();
+        const specCollector = new UnitCollector();
         specCollector.addSpec('spec with one unit', () => {
           specCollector.addUnit('1 unit', () => {});
         });
@@ -121,7 +121,7 @@ describe('A `SpecCollector`', () => {
       });
       
       it('a unit nested inside two specs, it finds two specs.', () => {
-        const specCollector = new SpecCollector();
+        const specCollector = new UnitCollector();
         specCollector.addSpec('spec with one spec and unit', () => {
           specCollector.addSpec('spec with one unit', () => {
             specCollector.addUnit('1 unit', () => {});
@@ -134,9 +134,11 @@ describe('A `SpecCollector`', () => {
   
   describe('API, implementation specifics', () => {
     it('`numberOfSuites` can`t be modified', () => {
-      const specCollector = new SpecCollector();
+      const specCollector = new UnitCollector();
       specCollector.addSpec('', () => {});
-      specCollector.numberOfSuites = 0;
+      try { // make sure to catch errors, in case the setting of a getter throws :)
+        specCollector.numberOfSuites = 0;
+      } catch (e) {}
       assert.equal(specCollector.numberOfSuites, 1);
     });
   });

@@ -1,6 +1,6 @@
-const assert = require('assert');
-const execute = require('../lib/execute');
-const { describe, it } = require('../lib');
+import assert from 'assert';
+import { describe, it } from '../lib';
+import { execute } from '../lib/execute';
 
 describe('execute', () => {
   it('should return true for succeeding executable', async () => {

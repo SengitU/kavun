@@ -21,10 +21,10 @@ The project is named after my elder cat Kavun.
 A sync example for unit
 
 ```jskavun.jpg
-const assert = require('assert');
-const { unit } = require('kavun');
+import assert from 'assert';
+import { it } from 'kavun';
 
-unit('Example unit', () => {
+it('Example `it`', () => {
   const expected = 2;
   const actual = 2;
   assert.equal(actual, expected);
@@ -34,10 +34,10 @@ unit('Example unit', () => {
 An async example with async/await
 
 ```js
-const assert = require('assert');
-const { unit } = require('kavun');
+import assert from 'assert';
+import { it } from 'kavun';
 
-unit('Example async unit with async / await', async () => {
+it('Example async `it` with async / await', async () => {
   const actual = () => new Promise(resolve => resolve(true));
   const expected = true;
   const result = await actual();
@@ -49,10 +49,10 @@ unit('Example async unit with async / await', async () => {
 An async example with Promise, don't forget to return the `promise`
 
 ```js
-const assert = require('assert');
-const { unit } = require('kavun');
+import assert from 'assert';
+import { it } from 'kavun';
 
-unit('Example async unit with async / await', () => {
+it('Example async `it` with async / await', () => {
   const actual = () => new Promise(resolve => resolve(true));
   const expected = true;
   
@@ -65,7 +65,7 @@ unit('Example async unit with async / await', () => {
 Timeout for each spec is 1500 miliseconds by default. To increase this amount, timeout attribute inside of the options object should be provided to the `unit`, as shown in the example;
 
 ```js
-unit('Example unit with extended timeout', async () => {
+it('Example `it` with extended timeout', async () => {
   const actual = () => new Promise(resolve => setTimeout(() => resolve(true), 1700));
   const expected = true;
 
@@ -77,18 +77,18 @@ unit('Example unit with extended timeout', async () => {
 ### Spec
 
 ```js
-const assert = require('assert');
-const { spec, unit } = require('kavun');
+import assert from 'assert';
+import { describe, it } from 'kavun';
 
-spec('Example Spec', () => {
-  unit('unit', () => {
+describe('Example Spec', () => {
+  it('unit', () => {
     const expected = 2;
     const actual = 2;
     assert.equal(actual, expected);
   });
 
-  spec('Async', () => {
-    unit('with async / await', async () => {
+  describe('Async', () => {
+    it('with async / await', async () => {
       const actual = () => new Promise(resolve => resolve(true));
       const expected = true;
 
