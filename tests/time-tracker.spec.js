@@ -1,6 +1,6 @@
-const assert = require("assert");
+import assert from 'assert';
+import { describe, it } from '../lib';
 const { startTimer, stopTimer } = require("../lib/utils/time-tracker");
-const { describe, it } = require("../lib/index");
 
 const memory = {};
 

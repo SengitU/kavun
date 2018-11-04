@@ -1,5 +1,5 @@
-const assert = require('assert');
-const { describe, it } = require('../lib');
+import assert from 'assert';
+import { describe, it } from '../lib/index.js';
 const SpecCollector = require('../lib/unit-collector');
 
 const noop = () => {};
@@ -136,7 +136,9 @@ describe('A `SpecCollector`', () => {
     it('`numberOfSuites` can`t be modified', () => {
       const specCollector = new SpecCollector();
       specCollector.addSpec('', () => {});
-      specCollector.numberOfSuites = 0;
+      try { // make sure to catch errors, in case the setting of a getter throws :)
+        specCollector.numberOfSuites = 0;
+      } catch (e) {}
       assert.equal(specCollector.numberOfSuites, 1);
     });
   });

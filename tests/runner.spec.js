@@ -1,8 +1,8 @@
 const sinon = require('sinon');
-const assert = require('assert');
+import assert from 'assert';
+import { describe, it } from '../lib';
 const runner = require('../lib/runner');
 const UnitCollector = require('../lib/unit-collector');
-const { describe, it } = require('../lib');
 
 const reporter = {
   step: sinon.spy(),

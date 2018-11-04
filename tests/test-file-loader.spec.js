@@ -1,7 +1,7 @@
-const assert = require('assert');
+import assert from 'assert';
+import { describe, it } from '../lib';
 const { noop, buildSpy } = require('../tests/utils.js');
 const { loadTestFiles } = require('../lib/test-file-loader');
-const { describe, it } = require('../lib/index');
 
 describe('FileLoader (slow tests)', () => {
   it('WHEN given a file, THEN loads just this file', () => {
