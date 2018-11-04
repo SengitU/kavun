@@ -1,5 +1,5 @@
-const noop = () => {};
-const buildSpy = () => {
+export const noop = () => {};
+export const buildSpy = () => {
   const calledWith = [];
   const spy = (...args) => {
     spy.wasCalled = true;
@@ -13,5 +13,3 @@ const buildSpy = () => {
     calledWith.filter(args => dumbDeepCompare(what, args)).length > 0;
   return spy;
 };
-
-module.exports = { noop, buildSpy };
