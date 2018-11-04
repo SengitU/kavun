@@ -17,16 +17,6 @@ spec('FileLoader', () => {
 
     assert(loaderMock.calledWith(file));
   });
-  unit('should load given files, with injected deps', () => {
-    const file = '/any/file-loader.spec.js';
-    const findFilesInDirectory = () => [file];
-
-    const loaderMock = sinon.spy();
-    loadAllFiles(loaderMock, file, {findFilesInDirectory});
-
-    assert(loaderMock.calledWith(file));
-  });
-
   unit('should be able to load all specs inside of the given path', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
     const loaderMock = sinon.spy();
