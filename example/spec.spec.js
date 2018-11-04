@@ -1,15 +1,15 @@
-const assert = require('assert');
-const { spec, unit } = require('../lib');
+import assert from 'assert';
+import { describe, it } from '../lib';
 
-spec('Example Spec', () => {
-  unit('unit', () => {
+describe('Example Spec', () => {
+  it('unit', () => {
     const expected = 2;
     const actual = 2;
     assert.equal(actual, expected);
   });
 
-  spec('Async', () => {
-    unit('with async / await', async () => {
+  describe('Async', () => {
+    it('with async / await', async () => {
       const actual = () => new Promise(resolve => resolve(true));
       const expected = true;
 
@@ -18,7 +18,7 @@ spec('Example Spec', () => {
       assert.equal(expected, result)
     });
 
-    unit('without async/await', () => {
+    it('without async/await', () => {
       const actual = () => new Promise(resolve => resolve(true));
       const expected = true;
 

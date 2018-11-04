@@ -1,13 +1,13 @@
-const assert = require('assert');
-const { unit } = require('../lib');
+import assert from 'assert';
+import { it } from '../lib';
 
-unit('Example unit', () => {
+it('Example unit', () => {
   const expected = 2;
   const actual = 2;
   assert.equal(actual, expected);
 });
 
-unit('Example async unit with async / await', async () => {
+it('Example async unit with async / await', async () => {
   const actual = () => new Promise(resolve => resolve(true));
   const expected = true;
 
@@ -15,14 +15,14 @@ unit('Example async unit with async / await', async () => {
   assert.equal(expected, result);
 });
 
-unit('Example async unit without async/await', () => {
+it('Example async unit without async/await', () => {
   const actual = () => new Promise(resolve => resolve(true));
   const expected = true;
 
   return actual().then(result => assert.equal(expected, result));
 });
 
-unit('Example unit with extended timeout', async () => {
+it('Example unit with extended timeout', async () => {
   const actual = () => new Promise(resolve => setTimeout(() => resolve(true), 1700));
   const expected = true;
 
