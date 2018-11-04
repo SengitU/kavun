@@ -4,10 +4,6 @@ const { loadTestFiles } = require('../lib/test-file-loader');
 const { spec, unit } = require('../lib/index');
 
 const noop = () => {};
-const loadAllFiles = (loaderMock, file, deps) => {
-  const filesFilter = () => true;
-  return loadTestFiles(loaderMock, file, filesFilter, {isFile: () => false, ...deps});
-};
 
 spec('FileLoader', () => {
   unit('should load given files', () => {
@@ -47,32 +43,34 @@ describe('The `FileLoader`', () => {
       calledWith.map(args => dumbDeepCompare(what, args)).length > 0;
     return spy;
   };
-  
+
+  const defaultDeps = {
+    findFilesInDirectory: noop,
+    isFile: () => false,
+  };
+  const load = (loaderFn, deps) => {
+    const fileFilter = () => true;
+    loadTestFiles(loaderFn, 'irrelevant/dir-name', fileFilter, {...defaultDeps, ...deps});
+  };
+
   it('WHEN given an empty directory, THEN loads no file', () => {
     const emptyDirectory = [];
     const findFilesInDirectory = () => emptyDirectory;
     const loaderFn = buildSpy();
-
-    loadAllFiles(loaderFn, 'irrelevant/dir-name', {findFilesInDirectory});
-
+    load(loaderFn, {findFilesInDirectory});
     assert.equal(loaderFn.wasCalled, false);
   });
   it('WHEN given a file, THEN loads just this file', () => {
-    const findFilesInDirectory = noop;
     const isFile = () => true;
     const loaderFn = buildSpy();
-
-    loadTestFiles(loaderFn, 'irrelevant/dir-name', () => true, {findFilesInDirectory, isFile});
-
+    load(loaderFn, {isFile});
     assert.equal(loaderFn.callCount, 1);
   });
   it('WHEN given a directory with files, THEN loads all files', () => {
     const dirWithFiles = ['one.spec.js', 'two.spec.js'];
     const findFilesInDirectory = () => dirWithFiles;
     const loaderFn = buildSpy();
-
-    loadAllFiles(loaderFn, 'irrelevant/dir-name', {findFilesInDirectory});
-
+    load(loaderFn, {findFilesInDirectory});
     assert.equal(loaderFn.callCount, dirWithFiles.length);
   });
   it('WHEN given a directory with files AND a filter, THEN loads all files matching this filter', () => {
@@ -80,9 +78,7 @@ describe('The `FileLoader`', () => {
     const findFilesInDirectory = () => dirWithFiles;
     const filesFilter = (fileName) => fileName === 'two.spec.js';
     const loaderFn = buildSpy();
-
-    loadTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {findFilesInDirectory, isFile: () => false});
-
+    loadTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {...defaultDeps, findFilesInDirectory});
     assert(loaderFn.calledWith('two.spec.js'));
   });
 });
