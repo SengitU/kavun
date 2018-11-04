@@ -1,16 +1,16 @@
 const assert = require('assert');
 const { noop, buildSpy } = require('../tests/utils.js');
 const { loadTestFiles } = require('../lib/test-file-loader');
-const { spec, unit } = require('../lib/index');
+const { describe, it } = require('../lib/index');
 
-spec('FileLoader (slow tests)', () => {
-  unit('WHEN given a file, THEN loads just this file', () => {
+describe('FileLoader (slow tests)', () => {
+  it('WHEN given a file, THEN loads just this file', () => {
     const file = `${process.cwd()}/tests/test-file-loader.spec.js`;
     const loaderMock = buildSpy();
     loadTestFiles(loaderMock, file);
     assert(loaderMock.calledWith(file));
   });
-  unit('WHEN given a path, THEN it loads all files in there', () => {
+  it('WHEN given a path, THEN it loads all files in there', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
     const loaderMock = buildSpy();
     loadTestFiles(loaderMock, __dirname);
@@ -22,7 +22,6 @@ spec('FileLoader (slow tests)', () => {
   });
 });
 
-const { spec: describe, unit: it } = require('../lib/index');
 describe('The `FileLoader`', () => {
   const defaultDeps = {
     findFilesInDirectory: noop,
