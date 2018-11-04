@@ -1,22 +1,7 @@
 const assert = require('assert');
+const { noop, buildSpy } = require('../tests/utils.js');
 const { loadTestFiles } = require('../lib/test-file-loader');
 const { spec, unit } = require('../lib/index');
-
-const noop = () => {};
-const buildSpy = () => {
-  const calledWith = [];
-  const spy = (...args) => {
-    spy.wasCalled = true;
-    spy.callCount++;
-    calledWith.push(args);
-  };
-  spy.wasCalled = false;
-  spy.callCount = 0;
-  const dumbDeepCompare = (what, args) => ''+what === ''+args;
-  spy.calledWith = (what) =>
-    calledWith.filter(args => dumbDeepCompare(what, args)).length > 0;
-  return spy;
-};
 
 spec('FileLoader (slow tests)', () => {
   unit('WHEN given a file, THEN loads just this file', () => {
