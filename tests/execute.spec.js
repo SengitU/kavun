@@ -1,29 +1,29 @@
 const assert = require('assert');
 const execute = require('../lib/execute');
-const { spec, unit } = require('../lib');
+const { describe, it } = require('../lib');
 
-spec('execute', () => {
-  unit('should return true for succeeding executable', async () => {
+describe('execute', () => {
+  it('should return true for succeeding executable', async () => {
     const succeedingExecutable = () => assert.equal(1, 1);
     await execute(succeedingExecutable).then(res => assert(res.result));
   });
 
-  unit("should return elapsedTime for succeeding executable", async () => {
+  it("should return elapsedTime for succeeding executable", async () => {
     const succeedingExecutable = () => assert.equal(1, 1);
     const { elapsedTime } = await execute(succeedingExecutable);
 
     assert.notEqual(elapsedTime, undefined)
   });
 
-  unit("should return elapsedTime for failing executable", async () => {
+  it("should return elapsedTime for failing executable", async () => {
     const failingExecutable = () => assert.equal(1, 0);
     const { elapsedTime } = await execute(failingExecutable);
 
     assert.notEqual(elapsedTime, undefined);
   });
 
-  spec('Assertion Error', () => {
-    unit('should return expected and actual values for failing executable', async () => {
+  describe('Assertion Error', () => {
+    it('should return expected and actual values for failing executable', async () => {
       const failingExecutable = () => assert.equal(0, 1);
       const failureObj = {
         result: false,
@@ -35,7 +35,7 @@ spec('execute', () => {
       assert.equal(actualErrorMessage, failureObj.errorMessage);
     });
   
-    unit('should be able to execute async functions', async () => {
+    it('should be able to execute async functions', async () => {
       const failingExecutable = () => new Promise((resolve) => resolve(assert.equal(0, 1)));
       const failureObj = {
         result: false,
@@ -48,8 +48,8 @@ spec('execute', () => {
     });
   });
 
-  spec('Timeout Error', () => {
-    unit('should return timeout error after 1500ms', async () => {
+  describe('Timeout Error', () => {
+    it('should return timeout error after 1500ms', async () => {
       const executionTimeout = 1000;
       const timeoutErrorExecutable = () => new Promise(resolve => setTimeout(() => resolve(), 1200))
       const failureObj = {
@@ -64,8 +64,8 @@ spec('execute', () => {
     });
   });
 
-  spec('Other Errors', () => {
-    unit('should return description and stack trace', async () => {
+  describe('Other Errors', () => {
+    it('should return description and stack trace', async () => {
       const referrenceErrorExecutable = () => assert(notDefined);
       const failureObj = {
         result: false,

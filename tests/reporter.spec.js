@@ -1,16 +1,16 @@
 const sinon = require('sinon');
 const assert = require('assert');
 const reporter = require('../lib/reporters/index');
-const { spec, unit } = require('../lib');
+const { describe, it } = require('../lib');
 
 const outputDevice = {
   log: sinon.spy()
 };
 const mockedReporter = reporter(outputDevice);
 
-spec('Reporter', () => {
-  spec('Log', () => {
-    unit('should print exactly', () => {
+describe('Reporter', () => {
+  describe('Log', () => {
+    it('should print exactly', () => {
       const description = 'test';
       mockedReporter.log(description, true);
 
@@ -18,16 +18,16 @@ spec('Reporter', () => {
     });
   });
 
-  spec('New Line', () => {
-    unit('should move to the new line', () => {
+  describe('New Line', () => {
+    it('should move to the new line', () => {
       mockedReporter.newLine();
 
       assert.equal(true, outputDevice.log.calledWith('\n'));
     });
   });
 
-  spec('Step', () => {
-    unit('should add check mark and elapsed time for succeeded tests', () => {
+  describe('Step', () => {
+    it('should add check mark and elapsed time for succeeded tests', () => {
       const description = 'test';
       const elapsedTime = 123.1221;
       mockedReporter.step(description, true, elapsedTime);
@@ -35,7 +35,7 @@ spec('Reporter', () => {
       assert(outputDevice.log.calledWith('test => ✓ in 123.12ms'))
     });
 
-    unit("should add cross mark and elapsed time for failed tests", () => {
+    it("should add cross mark and elapsed time for failed tests", () => {
       const description = "test";
       const elapsedTime = 123.1221;
       mockedReporter.step(description, false, elapsedTime);
@@ -44,8 +44,8 @@ spec('Reporter', () => {
     });
   });
 
-  spec('Result', () => {
-    unit('should print number of successes and failures with elapsed time', () => {
+  describe('Result', () => {
+    it('should print number of successes and failures with elapsed time', () => {
       const elapsedTime = 123.1221;
       mockedReporter.result(3, 5, elapsedTime);
 

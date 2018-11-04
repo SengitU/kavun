@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const assert = require('assert');
 const runner = require('../lib/runner');
 const UnitCollector = require('../lib/unit-collector');
-const { spec, unit } = require('../lib');
+const { describe, it } = require('../lib');
 
 const reporter = {
   step: sinon.spy(),
@@ -16,8 +16,8 @@ const pid = 1;
 
 const clearMocks = () => process.exit.resetHistory();
 
-spec('Runner', () => {
-  unit('should execute single executable and report results for steps and overall to reporter', async () => {
+describe('Runner', () => {
+  it('should execute single executable and report results for steps and overall to reporter', async () => {
     const unitCollector = new UnitCollector();
     const description = 'test';
     const testFunction = () => {};
@@ -31,7 +31,7 @@ spec('Runner', () => {
     assert(reporter.result.calledWith(0, 1));
   });
 
-  unit('should execute a spec of executables and report results for steps and overall to reporter', async () => {
+  it('should execute a spec of executables and report results for steps and overall to reporter', async () => {
     const unitCollector = new UnitCollector();
     const specDescription = 'spec';
     const unitDescription = 'unit';
@@ -49,7 +49,7 @@ spec('Runner', () => {
     assert(reporter.result.calledWith(0, 2));
   });
 
-  unit('should be able to execute asynchronous executables and report results for steps and overall to reporter', async () => {
+  it('should be able to execute asynchronous executables and report results for steps and overall to reporter', async () => {
     const unitCollector = new UnitCollector();
     const specDescription = 'spec';
     const unitDescription = 'unit';
@@ -67,7 +67,7 @@ spec('Runner', () => {
     assert(reporter.result.calledWith(0, 2));
   });
 
-  unit('Should be able to report expected and actual values for failing cases', async () => {
+  it('Should be able to report expected and actual values for failing cases', async () => {
     const unitCollector = new UnitCollector();
     const specDescription = 'spec';
     const unitDescription = 'unit';
@@ -87,7 +87,7 @@ spec('Runner', () => {
     assert(reporter.log.calledWith(failureObj.description));
   });
 
-  unit("should exit process with the code 0 if tests are passed", async () => {
+  it("should exit process with the code 0 if tests are passed", async () => {
     clearMocks();
 
     const unitCollector = new UnitCollector();
@@ -106,7 +106,7 @@ spec('Runner', () => {
     assert(process.exit.calledWith(0));
   });
 
-  unit("should exit process with the code 1 if any test is failed", async () => {
+  it("should exit process with the code 1 if any test is failed", async () => {
     clearMocks();
 
     const unitCollector = new UnitCollector();

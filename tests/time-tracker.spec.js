@@ -1,12 +1,12 @@
 const assert = require("assert");
 const { startTimer, stopTimer } = require("../lib/utils/time-tracker");
-const { spec, unit } = require("../lib/index");
+const { describe, it } = require("../lib/index");
 
 const memory = {};
 
-spec('TimeTracker', () => {
-  spec('startTimer', () => {
-    unit('should add provided key to the cache with start values', () => {
+describe('TimeTracker', () => {
+  describe('startTimer', () => {
+    it('should add provided key to the cache with start values', () => {
       const id = "random-id";
       
       startTimer(id, memory);
@@ -16,8 +16,8 @@ spec('TimeTracker', () => {
     });
   });
 
-  spec("stopTimer", () => {
-    unit('should return elapsed time in miliseconds', () => {
+  describe("stopTimer", () => {
+    it('should return elapsed time in miliseconds', () => {
       const id = "random-id";
 
       const elapsedTime = stopTimer(id, memory);
