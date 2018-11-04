@@ -3,9 +3,10 @@ const sinon = require('sinon');
 const { loadTestFiles } = require('../lib/test-file-loader');
 const { spec, unit } = require('../lib/index');
 
+const noop = () => {};
 const loadAllFiles = (loaderMock, file, deps) => {
   const filesFilter = () => true;
-  return loadTestFiles(loaderMock, file, filesFilter, deps);
+  return loadTestFiles(loaderMock, file, filesFilter, {isFile: () => false, ...deps});
 };
 
 spec('FileLoader', () => {
@@ -56,6 +57,15 @@ describe('The `FileLoader`', () => {
 
     assert.equal(loaderFn.wasCalled, false);
   });
+  it('WHEN given a file, THEN loads just this file', () => {
+    const findFilesInDirectory = noop;
+    const isFile = () => true;
+    const loaderFn = buildSpy();
+
+    loadTestFiles(loaderFn, 'irrelevant/dir-name', () => true, {findFilesInDirectory, isFile});
+
+    assert.equal(loaderFn.callCount, 1);
+  });
   it('WHEN given a directory with files, THEN loads all files', () => {
     const dirWithFiles = ['one.spec.js', 'two.spec.js'];
     const findFilesInDirectory = () => dirWithFiles;
@@ -71,7 +81,7 @@ describe('The `FileLoader`', () => {
     const filesFilter = (fileName) => fileName === 'two.spec.js';
     const loaderFn = buildSpy();
 
-    loadTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {findFilesInDirectory});
+    loadTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {findFilesInDirectory, isFile: () => false});
 
     assert(loaderFn.calledWith('two.spec.js'));
   });
