@@ -5,7 +5,7 @@ const { spec, unit } = require('../lib/index');
 
 const loadAllFiles = (loaderMock, file, deps) => {
   const filesFilter = () => true;
-  return loadPotentialTestFiles(loaderMock, file, {filesFilter, ...deps})
+  return loadPotentialTestFiles(loaderMock, file, filesFilter, deps);
 };
 
 spec('FileLoader', () => {
@@ -71,7 +71,7 @@ describe('The `FileLoader`', () => {
     const filesFilter = (fileName) => fileName === 'two.spec.js';
     const loaderFn = buildSpy();
 
-    loadPotentialTestFiles(loaderFn, 'irrelevant/dir-name', {findFilesInDirectory, filesFilter});
+    loadPotentialTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {findFilesInDirectory});
 
     assert(loaderFn.calledWith('two.spec.js'));
   });
