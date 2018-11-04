@@ -7,3 +7,4 @@
 - [ ] pass test-file-name filter criteria as params (instead of hard-coding `.spec` as it is now)
 - [ ] provide `it` and `describe`
 - [ ] provide `xit` and `xdescribe`
+- [ ] move to pure `import` (using esm) to not need `require` and be browser compatible
