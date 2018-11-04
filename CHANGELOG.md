@@ -9,3 +9,4 @@
 - [x] provide `it` and `describe`, and use it at least internally everywhere
 - [x] provide `xit` and `xdescribe`
 - [ ] move to pure `import` (using esm) to not need `require` and be browser compatible
+- [ ] remove sinon

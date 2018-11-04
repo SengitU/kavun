@@ -1,10 +1,10 @@
-import sinon from 'sinon';
 import assert from 'assert';
+import { buildSpy } from './utils.js';
 import { describe, it } from '../lib';
 import { reporter } from '../lib/reporters/index';
 
 const outputDevice = {
-  log: sinon.spy()
+  log: buildSpy()
 };
 const mockedReporter = reporter(outputDevice);
 
