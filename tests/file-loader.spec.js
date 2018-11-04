@@ -40,9 +40,11 @@ const { spec: describe, unit: it } = require('../lib/index');
 describe('The `FileLoader`', () => {
   const buildSpy = () => {
     const spy = () => {
-      spy.wasCalled = true;  
+      spy.wasCalled = true;
+      spy.callCount++;
     };
     spy.wasCalled = false;
+    spy.callCount = 0;
     return spy;
   };
   
@@ -56,4 +58,15 @@ describe('The `FileLoader`', () => {
 
     assert.equal(loaderFn.wasCalled, false);
   });
+  it('WHEN given a directory with 1 file, THEN loads one file', () => {
+    const dirWithOneFile = ['one.spec.js'];
+    const findFilesInDirectory = () => dirWithOneFile;
+    const loaderFn = buildSpy();
+
+    const loader = fileLoader(loaderFn, {findFilesInDirectory});
+    loader.load('irrelevant/dir-name');
+
+    assert.equal(loaderFn.callCount, 1);
+  });
+  
 });
