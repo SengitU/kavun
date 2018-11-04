@@ -18,8 +18,7 @@ spec('FileLoader', () => {
     const file = '/any/file-loader.spec.js';
     const findFilesInDirectory = () => [file];
 
-    const loader = fileLoader(loaderMock, {findFilesInDirectory});
-    loader.load(file);
+    loadPotentialTestFiles(loaderMock, file, {findFilesInDirectory});
 
     assert(loaderMock.calledWith(file));
   });
@@ -37,6 +36,7 @@ spec('FileLoader', () => {
 });
 
 const { spec: describe, unit: it } = require('../lib/index');
+const { loadPotentialTestFiles } = require('../lib/file-loader');
 describe('The `FileLoader`', () => {
   const buildSpy = () => {
     const spy = () => {
@@ -53,8 +53,7 @@ describe('The `FileLoader`', () => {
     const findFilesInDirectory = () => emptyDirectory;
     const loaderFn = buildSpy();
 
-    const loader = fileLoader(loaderFn, {findFilesInDirectory});
-    loader.load('irrelevant/dir-name');
+    loadPotentialTestFiles(loaderFn, 'irrelevant/dir-name', {findFilesInDirectory});
 
     assert.equal(loaderFn.wasCalled, false);
   });
@@ -63,8 +62,7 @@ describe('The `FileLoader`', () => {
     const findFilesInDirectory = () => dirWithOneFile;
     const loaderFn = buildSpy();
 
-    const loader = fileLoader(loaderFn, {findFilesInDirectory});
-    loader.load('irrelevant/dir-name');
+    loadPotentialTestFiles(loaderFn, 'irrelevant/dir-name', {findFilesInDirectory});
 
     assert.equal(loaderFn.callCount, 1);
   });
