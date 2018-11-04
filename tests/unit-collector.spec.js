@@ -15,7 +15,7 @@ describe('A `SpecCollector`', () => {
     assert.throws(fn);
   });
 
-  describe('collecting units (tests) via `addUnit()`', () => {
+  describe('collecting tests (tests) via `addUnit()`', () => {
     const addUnit = (desc, testFn = noop, options = {}) => {
       const specCollector = new SpecCollector();
       specCollector.addUnit(desc, testFn, options);
@@ -59,7 +59,7 @@ describe('A `SpecCollector`', () => {
       assert.deepEqual(testFunctionsOf(specCollector), [referenceFunction]);
     });
   
-    it('stores timeout option for units', () => {
+    it('stores timeout option for tests', () => {
       const description = 'my desc';
       const timeout = 1000;
       const referenceFunction = () => {};
@@ -88,14 +88,14 @@ describe('A `SpecCollector`', () => {
   });
   
   describe('provides statistics', () => {
-    describe('the number of units (via `numberOfTests`), when provided', () => {
+    describe('the number of tests (via `numberOfTests`), when provided', () => {
       it('1 unit, it finds 1 unit.', () => {
         const specCollector = new SpecCollector();
         specCollector.addUnit('1 unit', () => {});
         assert.equal(specCollector.numberOfTests, 1);
       });
     
-      it('multiple units, it finds them.', () => {
+      it('multiple tests, it finds them.', () => {
         const specCollector = new SpecCollector();
         specCollector.addUnit('1 unit', () => {});
         specCollector.addUnit('1 unit', () => {});
