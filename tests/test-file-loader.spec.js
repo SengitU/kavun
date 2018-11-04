@@ -5,20 +5,17 @@ const { spec, unit } = require('../lib/index');
 
 const noop = () => {};
 
-spec('FileLoader', () => {
-  unit('should load given files', () => {
+spec('FileLoader (slow tests)', () => {
+  unit('WHEN given a file, THEN loads just this file', () => {
     const file = `${process.cwd()}/tests/test-file-loader.spec.js`;
-    
     const loaderMock = sinon.spy();
     loadTestFiles(loaderMock, file);
-
     assert(loaderMock.calledWith(file));
   });
-  unit('should be able to load all specs inside of the given path', () => {
+  unit('WHEN given a path, THEN it loads all files in there', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
     const loaderMock = sinon.spy();
     loadTestFiles(loaderMock, __dirname);
-
     assert(loaderMock.calledWith(dirName('execute.spec.js')));
     assert(loaderMock.calledWith(dirName('reporter.spec.js')));
     assert(loaderMock.calledWith(dirName('runner.spec.js')));
