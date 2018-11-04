@@ -1,6 +1,6 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { loadTestFiles } = require('../lib/file-loader');
+const { loadTestFiles } = require('../lib/test-file-loader');
 const { spec, unit } = require('../lib/index');
 
 const loadAllFiles = (loaderMock, file, deps) => {
@@ -10,7 +10,7 @@ const loadAllFiles = (loaderMock, file, deps) => {
 
 spec('FileLoader', () => {
   unit('should load given files', () => {
-    const file = `${process.cwd()}/tests/file-loader.spec.js`;
+    const file = `${process.cwd()}/tests/test-file-loader.spec.js`;
     
     const loaderMock = sinon.spy();
     loadTestFiles(loaderMock, file);
@@ -26,7 +26,7 @@ spec('FileLoader', () => {
     assert(loaderMock.calledWith(dirName('reporter.spec.js')));
     assert(loaderMock.calledWith(dirName('runner.spec.js')));
     assert(loaderMock.calledWith(dirName('unit-collector.spec.js')));
-    assert(loaderMock.calledWith(dirName('file-loader.spec.js')));
+    assert(loaderMock.calledWith(dirName('test-file-loader.spec.js')));
   });
 });
 
