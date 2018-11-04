@@ -1,6 +1,7 @@
 # Ideas
-- [ ] ????
-
+- [ ] provide `it.only` and `describe.only` which add only those tests to the tests to run, really handy
+- [ ] add a `--bail` option, which stops test execution after the first failure
+ 
 # Currently in the works
 
 - [x] refactor test file loaders, so we can pass filter criteria as params
