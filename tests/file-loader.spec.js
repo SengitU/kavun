@@ -1,11 +1,11 @@
 const assert = require('assert');
 const sinon = require('sinon');
-const { loadPotentialTestFiles } = require('../lib/file-loader');
+const { loadTestFiles } = require('../lib/file-loader');
 const { spec, unit } = require('../lib/index');
 
 const loadAllFiles = (loaderMock, file, deps) => {
   const filesFilter = () => true;
-  return loadPotentialTestFiles(loaderMock, file, filesFilter, deps);
+  return loadTestFiles(loaderMock, file, filesFilter, deps);
 };
 
 spec('FileLoader', () => {
@@ -13,14 +13,14 @@ spec('FileLoader', () => {
     const file = `${process.cwd()}/tests/file-loader.spec.js`;
     
     const loaderMock = sinon.spy();
-    loadPotentialTestFiles(loaderMock, file);
+    loadTestFiles(loaderMock, file);
 
     assert(loaderMock.calledWith(file));
   });
   unit('should be able to load all specs inside of the given path', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
     const loaderMock = sinon.spy();
-    loadPotentialTestFiles(loaderMock, __dirname);
+    loadTestFiles(loaderMock, __dirname);
 
     assert(loaderMock.calledWith(dirName('execute.spec.js')));
     assert(loaderMock.calledWith(dirName('reporter.spec.js')));
@@ -71,7 +71,7 @@ describe('The `FileLoader`', () => {
     const filesFilter = (fileName) => fileName === 'two.spec.js';
     const loaderFn = buildSpy();
 
-    loadPotentialTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {findFilesInDirectory});
+    loadTestFiles(loaderFn, 'irrelevant/dir-name', filesFilter, {findFilesInDirectory});
 
     assert(loaderFn.calledWith('two.spec.js'));
   });
