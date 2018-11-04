@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from '../lib/index.js';
-const SpecCollector = require('../lib/unit-collector');
+import SpecCollector from '../lib/unit-collector';
 
 const noop = () => {};
 

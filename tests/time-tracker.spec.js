@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from '../lib';
-const { startTimer, stopTimer } = require("../lib/utils/time-tracker");
+import { startTimer, stopTimer } from '../lib/utils/time-tracker';
 
 const memory = {};
 

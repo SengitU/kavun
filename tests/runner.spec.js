@@ -1,8 +1,8 @@
-const sinon = require('sinon');
+import sinon from 'sinon';
 import assert from 'assert';
 import { describe, it } from '../lib';
-const runner = require('../lib/runner');
-const UnitCollector = require('../lib/unit-collector');
+import runner from '../lib/runner';
+import UnitCollector from '../lib/unit-collector';
 
 const reporter = {
   step: sinon.spy(),
@@ -11,7 +11,7 @@ const reporter = {
   newLine: sinon.spy()
 };
 
-const process = { exit: sinon.spy() }
+const process = { exit: sinon.spy() };
 const pid = 1;
 
 const clearMocks = () => process.exit.resetHistory();
