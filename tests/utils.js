@@ -9,7 +9,7 @@ export const buildSpy = () => {
   spy.wasCalled = false;
   spy.callCount = 0;
   const dumbDeepCompare = (what, args) => ''+what === ''+args;
-  spy.calledWith = (what) =>
+  spy.calledWith = (...what) =>
     calledWith.filter(args => dumbDeepCompare(what, args)).length > 0;
   return spy;
 };

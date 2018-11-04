@@ -8,7 +8,7 @@ import { UnitCollector } from '../lib/unit-collector';
 const reporter = {
   step: sinon.spy(),
   result: sinon.spy(),
-  log: sinon.spy(),
+  log: buildSpy(),
   newLine: buildSpy()
 };
 
