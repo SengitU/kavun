@@ -111,13 +111,13 @@ describe('A `SpecCollector`', () => {
       });
     });
   
-    describe('the number of specs (via `numberOfSpecs`), when provided', () => {
+    describe('the number of specs (via `numberOfSuites`), when provided', () => {
       it('a unit inside a spec, it finds the spec.', () => {
         const specCollector = new SpecCollector();
         specCollector.addSpec('spec with one unit', () => {
           specCollector.addUnit('1 unit', () => {});
         });
-        assert.equal(specCollector.numberOfSpecs, 1);
+        assert.equal(specCollector.numberOfSuites, 1);
       });
       
       it('a unit nested inside two specs, it finds two specs.', () => {
@@ -127,17 +127,17 @@ describe('A `SpecCollector`', () => {
             specCollector.addUnit('1 unit', () => {});
           });
         });
-        assert.equal(specCollector.numberOfSpecs, 2);
+        assert.equal(specCollector.numberOfSuites, 2);
       });
     });
   });
   
   describe('API, implementation specifics', () => {
-    it('`numberOfSpecs` can`t be modified', () => {
+    it('`numberOfSuites` can`t be modified', () => {
       const specCollector = new SpecCollector();
       specCollector.addSpec('', () => {});
-      specCollector.numberOfSpecs = 0;
-      assert.equal(specCollector.numberOfSpecs, 1);
+      specCollector.numberOfSuites = 0;
+      assert.equal(specCollector.numberOfSuites, 1);
     });
   });
 });
