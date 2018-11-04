@@ -3,7 +3,6 @@ const sinon = require('sinon');
 const { loadPotentialTestFiles } = require('../lib/file-loader');
 const { spec, unit } = require('../lib/index');
 
-
 spec('FileLoader', () => {
   unit('should load given files', () => {
     const file = `${process.cwd()}/tests/file-loader.spec.js`;
@@ -57,14 +56,14 @@ describe('The `FileLoader`', () => {
 
     assert.equal(loaderFn.wasCalled, false);
   });
-  it('WHEN given a directory with 1 file, THEN loads one file', () => {
-    const dirWithOneFile = ['one.spec.js'];
-    const findFilesInDirectory = () => dirWithOneFile;
+  it('WHEN given a directory with files, THEN loads all files', () => {
+    const dirWithFiles = ['one.spec.js', 'two.spec.js'];
+    const findFilesInDirectory = () => dirWithFiles;
     const loaderFn = buildSpy();
 
     loadPotentialTestFiles(loaderFn, 'irrelevant/dir-name', {findFilesInDirectory});
 
-    assert.equal(loaderFn.callCount, 1);
+    assert.equal(loaderFn.callCount, dirWithFiles.length);
   });
   
 });
