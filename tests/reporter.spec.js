@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import assert from 'assert';
 import { describe, it } from '../lib';
-import reporter from '../lib/reporters/index';
+import { reporter } from '../lib/reporters/index';
 
 const outputDevice = {
   log: sinon.spy()

@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from '../lib';
-import execute from '../lib/execute';
+import { execute } from '../lib/execute';
 
 describe('execute', () => {
   it('should return true for succeeding executable', async () => {
