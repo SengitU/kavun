@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import assert from 'assert';
 import { describe, it } from '../lib';
 import runner from '../lib/runner';
-import UnitCollector from '../lib/unit-collector';
+import { UnitCollector } from '../lib/unit-collector';
 
 const reporter = {
   step: sinon.spy(),
