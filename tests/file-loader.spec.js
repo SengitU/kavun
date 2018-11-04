@@ -35,3 +35,25 @@ spec('FileLoader', () => {
     assert(loaderMock.calledWith(dirName('file-loader.spec.js')));
   });
 });
+
+const { spec: describe, unit: it } = require('../lib/index');
+describe('The `FileLoader`', () => {
+  const buildSpy = () => {
+    const spy = () => {
+      spy.wasCalled = true;  
+    };
+    spy.wasCalled = false;
+    return spy;
+  };
+  
+  it('WHEN given an empty directory, THEN loads no file', () => {
+    const emptyDirectory = [];
+    const findFilesInDirectory = () => emptyDirectory;
+    const loaderFn = buildSpy();
+
+    const loader = fileLoader(loaderFn, {findFilesInDirectory});
+    loader.load('irrelevant/dir-name');
+
+    assert.equal(loaderFn.wasCalled, false);
+  });
+});
