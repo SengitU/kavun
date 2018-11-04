@@ -1,20 +1,33 @@
 const assert = require('assert');
-const sinon = require('sinon');
 const { loadTestFiles } = require('../lib/test-file-loader');
 const { spec, unit } = require('../lib/index');
 
 const noop = () => {};
+const buildSpy = () => {
+  const calledWith = [];
+  const spy = (...args) => {
+    spy.wasCalled = true;
+    spy.callCount++;
+    calledWith.push(args);
+  };
+  spy.wasCalled = false;
+  spy.callCount = 0;
+  const dumbDeepCompare = (what, args) => ''+what === ''+args;
+  spy.calledWith = (what) =>
+    calledWith.filter(args => dumbDeepCompare(what, args)).length > 0;
+  return spy;
+};
 
 spec('FileLoader (slow tests)', () => {
   unit('WHEN given a file, THEN loads just this file', () => {
     const file = `${process.cwd()}/tests/test-file-loader.spec.js`;
-    const loaderMock = sinon.spy();
+    const loaderMock = buildSpy();
     loadTestFiles(loaderMock, file);
     assert(loaderMock.calledWith(file));
   });
   unit('WHEN given a path, THEN it loads all files in there', () => {
     const dirName = (fileName) => `${__dirname}/${fileName}`;
-    const loaderMock = sinon.spy();
+    const loaderMock = buildSpy();
     loadTestFiles(loaderMock, __dirname);
     assert(loaderMock.calledWith(dirName('execute.spec.js')));
     assert(loaderMock.calledWith(dirName('reporter.spec.js')));
@@ -26,21 +39,6 @@ spec('FileLoader (slow tests)', () => {
 
 const { spec: describe, unit: it } = require('../lib/index');
 describe('The `FileLoader`', () => {
-  const buildSpy = () => {
-    const calledWith = [];
-    const spy = (...args) => {
-      spy.wasCalled = true;
-      spy.callCount++;
-      calledWith.push(args);
-    };
-    spy.wasCalled = false;
-    spy.callCount = 0;
-    const dumbDeepCompare = (what, args) => ''+what === ''+args;
-    spy.calledWith = (what) =>
-      calledWith.map(args => dumbDeepCompare(what, args)).length > 0;
-    return spy;
-  };
-
   const defaultDeps = {
     findFilesInDirectory: noop,
     isFile: () => false,
