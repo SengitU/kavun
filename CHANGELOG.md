@@ -6,5 +6,5 @@
 - [x] refactor test file loaders, so we can pass filter criteria as params
 - [ ] pass test-file-name filter criteria as params (instead of hard-coding `.spec` as it is now)
 - [x] provide `it` and `describe`, and use it at least internally everywhere
-- [ ] provide `xit` and `xdescribe`
+- [x] provide `xit` and `xdescribe`
 - [ ] move to pure `import` (using esm) to not need `require` and be browser compatible
