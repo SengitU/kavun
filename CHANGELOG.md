@@ -10,3 +10,5 @@
 - [x] provide `it` and `describe`, and use it at least internally everywhere
 - [x] provide `xit` and `xdescribe`
 - [x] move to pure `import` (using esm) to not need `require` and be browser compatible
+- [ ] remove the dependency on uuid
+- [ ] write tenets for kavun
