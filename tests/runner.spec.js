@@ -13,7 +13,7 @@ const reporter = {
 };
 
 const process = { exit: sinon.spy() };
-const pid = 1;
+const noop = () => {};
 
 const clearMocks = () => process.exit.resetHistory();
 
@@ -26,7 +26,7 @@ describe('Runner', () => {
 
     unitCollector.addUnit(description, testFunction);
 
-    await runner(unitCollector, pid, { reporter, execute, process });
+    await runner(unitCollector, noop, { reporter, execute, process });
 
     assert(reporter.step.calledWith(description, true));
     assert(reporter.result.calledWith(0, 1));
@@ -44,7 +44,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, pid, { reporter, execute, process });
+    await runner(unitCollector, noop, { reporter, execute, process });
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -62,7 +62,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, pid, { reporter, execute, process });
+    await runner(unitCollector, noop, { reporter, execute, process });
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -83,7 +83,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, pid, { reporter, execute, process });
+    await runner(unitCollector, noop, { reporter, execute, process });
 
     assert(reporter.log.calledWith(failureObj.description));
   });
@@ -102,7 +102,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, pid, { reporter, execute, process });
+    await runner(unitCollector, noop, { reporter, execute, process });
 
     assert(process.exit.calledWith(0));
   });
@@ -121,7 +121,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, pid, { reporter, execute, process });
+    await runner(unitCollector, noop, { reporter, execute, process });
 
     assert(process.exit.calledWith(1));
   });
