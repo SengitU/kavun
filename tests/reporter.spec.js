@@ -1,12 +1,12 @@
 import assert from 'assert';
 import { buildSpy } from './utils.js';
 import { describe, it } from '../lib';
-import { reporter } from '../lib/reporters/index';
+import { _reporter } from '../lib/reporters/console-reporter.js';
 
 const outputDevice = {
   log: buildSpy()
 };
-const mockedReporter = reporter(outputDevice);
+const mockedReporter = _reporter(outputDevice);
 
 describe('Reporter', () => {
   describe('Log', () => {
