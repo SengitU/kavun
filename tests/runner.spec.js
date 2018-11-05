@@ -17,6 +17,9 @@ const noop = () => {};
 
 const clearMocks = () => process.exit.resetHistory();
 
+const run = (unitCollector, execute) =>
+  runner({ reporter }, { unitCollector, stopTimer: noop }, { execute, process });
+
 describe('Runner', () => {
   it('should execute single executable and report results for steps and overall to reporter', async () => {
     const unitCollector = new UnitCollector();
@@ -26,7 +29,7 @@ describe('Runner', () => {
 
     unitCollector.addUnit(description, testFunction);
 
-    await runner(unitCollector, noop, { reporter, execute, process });
+    await run(unitCollector, execute);
 
     assert(reporter.step.calledWith(description, true));
     assert(reporter.result.calledWith(0, 1));
@@ -44,7 +47,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, noop, { reporter, execute, process });
+    await run(unitCollector, execute);
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -62,7 +65,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, noop, { reporter, execute, process });
+    await run(unitCollector, execute);
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
     assert(reporter.result.calledWith(0, 2));
@@ -83,7 +86,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, noop, { reporter, execute, process });
+    await run(unitCollector, execute);
 
     assert(reporter.log.calledWith(failureObj.description));
   });
@@ -102,7 +105,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, noop, { reporter, execute, process });
+    await run(unitCollector, execute);
 
     assert(process.exit.calledWith(0));
   });
@@ -121,7 +124,7 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await runner(unitCollector, noop, { reporter, execute, process });
+    await run(unitCollector, execute);
 
     assert(process.exit.calledWith(1));
   });

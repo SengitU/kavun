@@ -12,3 +12,5 @@
 - [x] move to pure `import` (using esm) to not need `require` and be browser compatible
 - [x] remove the dependency on uuid, and fix the timetracking for each test (it used to use the same timer for multiple tests)
 - [ ] write tenets for kavun
+- [x] make the reporter configurable
+- [ ] build a minimal reporter
