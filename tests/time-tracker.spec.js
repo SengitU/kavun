@@ -7,7 +7,7 @@ const memory = {};
 describe('TimeTracker', () => {
   describe('startTimer', () => {
     it('should add provided key to the cache with start values', () => {
-      const id = "random-id";
+      const id = 'random-id';
       
       startTimer(id, memory);
 
@@ -16,13 +16,26 @@ describe('TimeTracker', () => {
     });
   });
 
-  describe("stopTimer", () => {
+  describe('stopTimer', () => {
     it('should return elapsed time in miliseconds', () => {
-      const id = "random-id";
+      const id = 'random-id';
 
       const elapsedTime = stopTimer(id, memory);
 
       assert(elapsedTime > 0)
     });
+  });
+  
+  const newStartTimer = () => {
+    return () => {};
+  };
+  it('`startTimer()` returns a function (`stopTimer`)', () => {
+    const stopTimer = newStartTimer();
+    assert.equal(typeof stopTimer, 'function');
+  });
+  it('calling `startTimer()` twice returns a different function every time', () => {
+    const stopTimer1 = newStartTimer();
+    const stopTimer2 = newStartTimer();
+    assert.notEqual(stopTimer1, stopTimer2);
   });
 });
