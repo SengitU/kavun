@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { describe, it } from '../lib';
-import { startTimer, stopTimer, newStartTimer } from '../lib/utils/time-tracker';
+import { newStartTimer } from '../lib/utils/time-tracker';
 
 describe('TimeTracker', () => {
   it('`startTimer()` returns a function (`stopTimer`)', () => {
