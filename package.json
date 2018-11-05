@@ -35,7 +35,6 @@
     "test": "tests"
   },
   "dependencies": {
-    "esm": "^3.0.84",
-    "uuid": "^3.2.1"
+    "esm": "^3.0.84"
   }
 }

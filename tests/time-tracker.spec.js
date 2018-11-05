@@ -1,27 +1,21 @@
 import assert from 'assert';
 import { describe, it } from '../lib';
-import { startTimer, stopTimer } from '../lib/utils/time-tracker';
-
-const memory = {};
+import { startTimer } from '../lib/utils/time-tracker';
 
 describe('TimeTracker', () => {
-  describe('startTimer', () => {
-    it('should add provided key to the cache with start values', () => {
-      const id = "random-id";
-      
-      startTimer(id, memory);
-
-      assert.notEqual(memory[id], undefined);
-      assert.equal(memory[id].length, 2);
-    });
+  it('`startTimer()` returns a function (`stopTimer`)', () => {
+    const stopTimer = startTimer();
+    assert.equal(typeof stopTimer, 'function');
   });
-
-  describe("stopTimer", () => {
+  it('calling `startTimer()` twice returns a different function every time', () => {
+    const stopTimer1 = startTimer();
+    const stopTimer2 = startTimer();
+    assert.notEqual(stopTimer1, stopTimer2);
+  });
+  describe('newStopTimer', () => {
     it('should return elapsed time in miliseconds', () => {
-      const id = "random-id";
-
-      const elapsedTime = stopTimer(id, memory);
-
+      const stopTimer = startTimer();
+      const elapsedTime = stopTimer();
       assert(elapsedTime > 0)
     });
   });
