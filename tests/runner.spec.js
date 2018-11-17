@@ -12,6 +12,7 @@ const reporter = {
   newLine: buildSpy(),
   
   fail: sinon.spy(),
+  final: sinon.spy(),
 };
 
 const process = { exit: sinon.spy() };
@@ -34,7 +35,7 @@ describe('Runner', () => {
     await run(unitCollector, execute);
 
     assert(reporter.step.calledWith(description, true));
-    assert(reporter.result.calledWith(0, 1));
+    assert(reporter.final.calledWith(0, 1));
   });
 
   it('should execute a spec of executables and report results for steps and overall to reporter', async () => {
@@ -52,7 +53,7 @@ describe('Runner', () => {
     await run(unitCollector, execute);
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
-    assert(reporter.result.calledWith(0, 2));
+    assert(reporter.final.calledWith(0, 2));
   });
 
   it('should be able to execute asynchronous executables and report results for steps and overall to reporter', async () => {
@@ -70,7 +71,7 @@ describe('Runner', () => {
     await run(unitCollector, execute);
 
     assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
-    assert(reporter.result.calledWith(0, 2));
+    assert(reporter.final.calledWith(0, 2));
   });
 
   it('Should be able to report expected and actual values for failing cases', async () => {
