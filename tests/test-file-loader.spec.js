@@ -15,7 +15,6 @@ describe('FileLoader (slow tests)', () => {
     const loaderMock = buildSpy();
     loadTestFiles(loaderMock, __dirname);
     assert(loaderMock.calledWith(dirName('execute.spec.js')));
-    assert(loaderMock.calledWith(dirName('reporter.spec.js')));
     assert(loaderMock.calledWith(dirName('runner.spec.js')));
     assert(loaderMock.calledWith(dirName('unit-collector.spec.js')));
     assert(loaderMock.calledWith(dirName('test-file-loader.spec.js')));
