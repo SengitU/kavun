@@ -9,7 +9,9 @@ const reporter = {
   step: sinon.spy(),
   result: sinon.spy(),
   log: buildSpy(),
-  newLine: buildSpy()
+  newLine: buildSpy(),
+  
+  fail: sinon.spy(),
 };
 
 const process = { exit: sinon.spy() };
@@ -88,7 +90,7 @@ describe('Runner', () => {
 
     await run(unitCollector, execute);
 
-    assert(reporter.log.calledWith(failureObj.description));
+    assert(reporter.fail.calledWith(failureObj.description));
   });
 
   it("should exit process with the code 0 if tests are passed", async () => {
