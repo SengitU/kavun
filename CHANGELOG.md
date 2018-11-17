@@ -15,3 +15,4 @@
 - [x] make the reporter configurable
 - [ ] build a minimal reporter
 - [ ] move tests inside lib directory, close to the source
+- [ ] move the time tracking into the reporter, if the reporter wants to do anything fancy with the time, it needs to be in control
