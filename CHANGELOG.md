@@ -14,3 +14,4 @@
 - [ ] write tenets for kavun
 - [x] make the reporter configurable
 - [ ] build a minimal reporter
+- [ ] move tests inside lib directory, close to the source
