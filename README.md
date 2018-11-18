@@ -16,6 +16,26 @@ The project is named after my elder cat Kavun.
 
 ### Usage Examples
 
+* Run the tests just for one file do  
+  `kavun test-files.spec.js`
+* or multiple files   
+  `kavun test1.spec.js 2.spec.js test/3.spec.js`
+* or for all `.js` files (use you command line's file grep features, e.g. `*` or `**` etc.)  
+  `kavun *.js`
+* for all files found in root and up to 2 sub-directories, ending in `.js`  
+  `kavun {,**,**/**}/*.js`
+* and mix any of the above  
+  `kavun test-files.spec.js {,**,**/**}/*.js`
+
+Kavun does not contain any file-grep functionality. Use your command line's 
+grep and/or file finding features. This was done to remove kavun's complexity.
+
+### Parameters
+
+The command line takes:
+1) any number of files (no directories!) to run as parameters
+1) `--reporter` which might be `console` or `minimal`
+
 ### Unit
 
 A sync example for unit
