@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import assert from 'assert';
 import { buildSpy } from './utils.js';
 import { describe, it } from '../lib';
@@ -6,20 +5,20 @@ import { runner } from '../lib/runner';
 import { UnitCollector } from '../lib/unit-collector';
 
 const reporter = {
-  step: sinon.spy(),
-  result: sinon.spy(),
+  step: buildSpy(),
+  result: buildSpy(),
   log: buildSpy(),
   newLine: buildSpy(),
   
-  fail: sinon.spy(),
-  final: sinon.spy(),
+  fail: buildSpy(),
+  final: buildSpy(),
   oneStep: buildSpy(),
 };
 
-const process = { exit: sinon.spy() };
+const process = { exit: buildSpy() };
 const noop = () => {};
 
-const clearMocks = () => process.exit.resetHistory();
+const clearMocks = () => process.exit = buildSpy();
 
 const run = (unitCollector, execute) =>
   runner({ reporter }, { unitCollector, stopTimer: noop }, { execute, process });
@@ -36,7 +35,7 @@ describe('Runner', () => {
     await run(unitCollector, execute);
 
     assert(reporter.oneStep.calledWith([''], description, true, undefined));
-    assert(reporter.final.calledWith(0, 1));
+    assert(reporter.final.calledWith(0, 1, undefined));
   });
 
   it('should execute a spec of executables and report results for steps and overall to reporter', async () => {
@@ -54,7 +53,7 @@ describe('Runner', () => {
     await run(unitCollector, execute);
 
     assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
-    assert(reporter.final.calledWith(0, 2));
+    assert(reporter.final.calledWith(0, 2, undefined));
   });
 
   it('should be able to execute asynchronous executables and report results for steps and overall to reporter', async () => {
@@ -72,7 +71,7 @@ describe('Runner', () => {
     await run(unitCollector, execute);
 
     assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
-    assert(reporter.final.calledWith(0, 2));
+    assert(reporter.final.calledWith(0, 2, undefined));
   });
 
   it('Should be able to report expected and actual values for failing cases', async () => {
