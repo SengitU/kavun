@@ -16,3 +16,4 @@
 - [ ] build a minimal reporter
 - [ ] move tests inside lib directory, close to the source
 - [ ] move the time tracking into the reporter, if the reporter wants to do anything fancy with the time, it needs to be in control
+- [ ] show a stacktrace that contains the failing test (currently its always just `runner.js`) (why? e.g. so it can be clicked on in IDEs) 
