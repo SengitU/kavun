@@ -1,6 +1,7 @@
 # Ideas
 - [ ] provide `it.only` and `describe.only` which add only those tests to the tests to run, really handy
 - [ ] add a `--bail` option, which stops test execution after the first failure
+- [ ] move `buildSpy()` into it's own npm module (maybe "kavun-spy")
  
 # Currently in the works
 
