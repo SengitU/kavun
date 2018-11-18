@@ -2,7 +2,7 @@
   "name": "kavun",
   "version": "1.0.0",
   "description": "A test framework for Javascript",
-  "bin": "./lib/kavun.js",
+  "bin": "./lib/kavun-require.js",
   "scripts": {
     "test": "node -r esm lib/kavun.js . minimal"
   },
