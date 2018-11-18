@@ -14,7 +14,7 @@
 - [x] remove the dependency on uuid, and fix the timetracking for each test (it used to use the same timer for multiple tests)
 - [ ] write tenets for kavun (like: no unnecessary dependency, as fast as possible, )
 - [x] make the reporter configurable
-- [ ] build a minimal reporter
+- [x] build a minimal reporter
 - [ ] move tests inside lib directory, close to the source
 - [ ] move the time tracking into the reporter, if the reporter wants to do anything fancy with the time, it needs to be in control and a test runner just runs tests does NOT measure or alike
 - [ ] show a stacktrace that contains the failing test (currently its always just `runner.js`) (why? e.g. so it can be clicked on in IDEs) 
