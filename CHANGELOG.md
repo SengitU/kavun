@@ -1,10 +1,10 @@
 # Ideas
 - [ ] provide `it.only` and `describe.only` which add only those tests to the tests to run, really handy
 - [ ] add a `--bail` option, which stops test execution after the first failure
-- [ ] remove sinon by internal, simple spy, see #6
  
 # Currently in the works
 
+- [x] remove sinon by internal, simple spy, see #6
 - [x] refactor test file loaders, so we can pass filter criteria as params
 - [ ] pass test-file-name filter criteria as params (instead of hard-coding `.spec` as it is now)
 - [x] provide `it` and `describe`, and use it at least internally everywhere

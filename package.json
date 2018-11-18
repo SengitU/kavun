@@ -25,9 +25,7 @@
     "url": "https://github.com/SengitU/kavun/issues"
   },
   "homepage": "https://github.com/SengitU/kavun#readme",
-  "devDependencies": {
-    "sinon": "^4.5.0"
-  },
+  "devDependencies": {},
   "main": "lib/index.js",
   "directories": {
     "example": "example",
