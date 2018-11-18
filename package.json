@@ -4,7 +4,7 @@
   "description": "A test framework for Javascript",
   "bin": "./lib/kavun-require.js",
   "scripts": {
-    "test": "node -r esm lib/kavun.js . minimal"
+    "test": "node -r esm lib/kavun.js ./{**,**/**}/*.spec.js --reporter=minimal"
   },
   "repository": {
     "type": "git",
