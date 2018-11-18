@@ -11,7 +11,7 @@
 
 - [x] remove sinon by internal, simple spy, see #6
 - [x] refactor test file loaders, so we can pass filter criteria as params
-- [ ] pass test-file-name filter criteria as params (instead of hard-coding `.spec` as it is now)
+- [ ] pass any number of file names of tests that shall be loaded 
 - [x] provide `it` and `describe`, and use it at least internally everywhere
 - [x] provide `xit` and `xdescribe`
 - [x] move to pure `import` (using esm) to not need `require` and be browser compatible
