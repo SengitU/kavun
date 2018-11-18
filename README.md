@@ -30,6 +30,12 @@ and mix any of the above
 Kavun does not contain any file-grep functionality. Use your command line's 
 grep and/or file finding features. This was done to remove kavun's complexity.
 
+### Parameters
+
+The command line takes:
+1) any number of files (no directories!) to run as parameters
+1) `--reporter` which might be `console` or `minimal`
+
 ### Unit
 
 A sync example for unit
