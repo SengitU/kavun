@@ -4,7 +4,7 @@
   "description": "A test framework for Javascript",
   "bin": "node -r esm ./lib/kavun.js",
   "scripts": {
-    "test": "node -r esm lib/kavun.js . console"
+    "test": "node -r esm lib/kavun.js . minimal"
   },
   "repository": {
     "type": "git",
@@ -25,9 +25,7 @@
     "url": "https://github.com/SengitU/kavun/issues"
   },
   "homepage": "https://github.com/SengitU/kavun#readme",
-  "devDependencies": {
-    "sinon": "^4.5.0"
-  },
+  "devDependencies": {},
   "main": "lib/index.js",
   "directories": {
     "example": "example",
