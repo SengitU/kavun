@@ -13,6 +13,7 @@ const reporter = {
   
   fail: sinon.spy(),
   final: sinon.spy(),
+  oneStep: buildSpy(),
 };
 
 const process = { exit: sinon.spy() };
@@ -34,7 +35,7 @@ describe('Runner', () => {
 
     await run(unitCollector, execute);
 
-    assert(reporter.step.calledWith(description, true));
+    assert(reporter.oneStep.calledWith([''], description, true, undefined));
     assert(reporter.final.calledWith(0, 1));
   });
 
@@ -52,7 +53,7 @@ describe('Runner', () => {
 
     await run(unitCollector, execute);
 
-    assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
+    assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
     assert(reporter.final.calledWith(0, 2));
   });
 
@@ -70,7 +71,7 @@ describe('Runner', () => {
 
     await run(unitCollector, execute);
 
-    assert(reporter.step.calledWith(`${specDescription} ${unitDescription}`, true));
+    assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
     assert(reporter.final.calledWith(0, 2));
   });
 
