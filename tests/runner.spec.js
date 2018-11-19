@@ -5,11 +5,6 @@ import { runner } from '../lib/runner';
 import { UnitCollector } from '../lib/unit-collector';
 
 const reporter = {
-  step: buildSpy(),
-  result: buildSpy(),
-  log: buildSpy(),
-  newLine: buildSpy(),
-  
   fail: buildSpy(),
   final: buildSpy(),
   oneStep: buildSpy(),
