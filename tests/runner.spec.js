@@ -8,15 +8,23 @@ const reporter = {
   fail: buildSpy(),
   final: buildSpy(),
   oneStep: buildSpy(),
+  pass: buildSpy(),
 };
+const buildReporter = () => ({
+  fail: buildSpy(),
+  final: buildSpy(),
+  oneStep: buildSpy(),
+  pass: buildSpy(),
+});
+
 
 const process = { exit: buildSpy() };
 const noop = () => {};
 
 const clearMocks = () => process.exit = buildSpy();
 
-const run = (unitCollector, execute) =>
-  runner({ reporter }, { unitCollector, stopTimer: noop }, { execute, process });
+const run = (unitCollector, execute, r = reporter) =>
+  runner({ reporter: r }, { unitCollector, stopTimer: noop }, { execute, process });
 
 describe('Runner', () => {
   it('should execute single executable and report results for steps and overall to reporter', async () => {
@@ -27,9 +35,11 @@ describe('Runner', () => {
 
     unitCollector.addUnit(description, testFunction);
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
     assert(reporter.oneStep.calledWith([''], description, true, undefined));
+    assert.deepEqual(reporter.pass.data.calledWith, [[[], description, undefined]]);
     assert(reporter.final.calledWith(0, 1, undefined));
   });
 
