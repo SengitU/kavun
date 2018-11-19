@@ -4,27 +4,19 @@ import { describe, it } from '../lib';
 import { runner } from '../lib/runner';
 import { UnitCollector } from '../lib/unit-collector';
 
-const reporter = {
-  fail: buildSpy(),
-  final: buildSpy(),
-  oneStep: buildSpy(),
-  pass: buildSpy(),
-};
 const buildReporter = () => ({
   fail: buildSpy(),
   final: buildSpy(),
   oneStep: buildSpy(),
   pass: buildSpy(),
 });
-
-
 const process = { exit: buildSpy() };
 const noop = () => {};
 
 const clearMocks = () => process.exit = buildSpy();
 
-const run = (unitCollector, execute, r = reporter) =>
-  runner({ reporter: r }, { unitCollector, stopTimer: noop }, { execute, process });
+const run = (unitCollector, execute, reporter = buildReporter()) =>
+  runner({ reporter: reporter }, { unitCollector, stopTimer: noop }, { execute, process });
 
 describe('Runner', () => {
   it('should execute single executable and report results for steps and overall to reporter', async () => {
