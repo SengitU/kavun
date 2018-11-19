@@ -7,7 +7,6 @@ import { UnitCollector } from '../lib/unit-collector';
 const buildReporter = () => ({
   fail: buildSpy(),
   final: buildSpy(),
-  oneStep: buildSpy(),
   pass: buildSpy(),
 });
 const process = { exit: buildSpy() };
@@ -30,7 +29,6 @@ describe('Runner', () => {
     const reporter = buildReporter();
     await run(unitCollector, execute, reporter);
 
-    assert(reporter.oneStep.calledWith([''], description, true, undefined));
     assert.deepEqual(reporter.pass.data.calledWith, [[[], description, undefined]]);
     assert(reporter.final.calledWith(0, 1, undefined));
   });
@@ -50,7 +48,6 @@ describe('Runner', () => {
     const reporter = buildReporter();
     await run(unitCollector, execute, reporter);
 
-    assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
     assert.deepEqual(reporter.pass.data.calledWith, [
       [[specDescription], unitDescription, undefined],
       [[specDescription], unitDescription, undefined],
@@ -73,7 +70,6 @@ describe('Runner', () => {
     const reporter = buildReporter();
     await run(unitCollector, execute, reporter);
 
-    assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
     assert.deepEqual(reporter.pass.data.calledWith, [
       [[specDescription], unitDescription, undefined],
       [[specDescription], unitDescription, undefined],
