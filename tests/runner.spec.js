@@ -99,7 +99,7 @@ describe('Runner', () => {
     const reporter = buildReporter();
     await run(unitCollector, execute, reporter);
 
-    assert.deepEqual(reporter.fail.data.calledWith, [[failureObj.errorMessage]]);
+    assert.deepEqual(reporter.fail.data.calledWith, [[[specDescription], unitDescription, failureObj.errorMessage, undefined]]);
   });
 
   it("should exit process with the code 0 if tests are passed", async () => {
