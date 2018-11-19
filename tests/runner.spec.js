@@ -55,9 +55,14 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
     assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
+    assert.deepEqual(reporter.pass.data.calledWith, [
+      [[specDescription], unitDescription, undefined],
+      [[specDescription], unitDescription, undefined],
+    ]);
     assert(reporter.final.calledWith(0, 2, undefined));
   });
 
@@ -73,9 +78,14 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
     assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
+    assert.deepEqual(reporter.pass.data.calledWith, [
+      [[specDescription], unitDescription, undefined],
+      [[specDescription], unitDescription, undefined],
+    ]);
     assert(reporter.final.calledWith(0, 2, undefined));
   });
 
