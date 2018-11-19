@@ -4,24 +4,18 @@ import { describe, it } from '../lib';
 import { runner } from '../lib/runner';
 import { UnitCollector } from '../lib/unit-collector';
 
-const reporter = {
-  step: buildSpy(),
-  result: buildSpy(),
-  log: buildSpy(),
-  newLine: buildSpy(),
-  
+const buildReporter = () => ({
   fail: buildSpy(),
   final: buildSpy(),
-  oneStep: buildSpy(),
-};
-
+  pass: buildSpy(),
+});
 const process = { exit: buildSpy() };
 const noop = () => {};
 
 const clearMocks = () => process.exit = buildSpy();
 
-const run = (unitCollector, execute) =>
-  runner({ reporter }, { unitCollector, stopTimer: noop }, { execute, process });
+const run = (unitCollector, execute, reporter = buildReporter()) =>
+  runner({ reporter: reporter }, { unitCollector, stopTimer: noop }, { execute, process });
 
 describe('Runner', () => {
   it('should execute single executable and report results for steps and overall to reporter', async () => {
@@ -32,9 +26,10 @@ describe('Runner', () => {
 
     unitCollector.addUnit(description, testFunction);
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
-    assert(reporter.oneStep.calledWith([''], description, true, undefined));
+    assert.deepEqual(reporter.pass.data.calledWith, [[[], description, undefined]]);
     assert(reporter.final.calledWith(0, 1, undefined));
   });
 
@@ -50,9 +45,13 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
-    assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
+    assert.deepEqual(reporter.pass.data.calledWith, [
+      [[specDescription], unitDescription, undefined],
+      [[specDescription], unitDescription, undefined],
+    ]);
     assert(reporter.final.calledWith(0, 2, undefined));
   });
 
@@ -68,9 +67,13 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
-    assert(reporter.oneStep.calledWith([specDescription], unitDescription, true, undefined));
+    assert.deepEqual(reporter.pass.data.calledWith, [
+      [[specDescription], unitDescription, undefined],
+      [[specDescription], unitDescription, undefined],
+    ]);
     assert(reporter.final.calledWith(0, 2, undefined));
   });
 
@@ -89,9 +92,11 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
-    assert(reporter.fail.calledWith(failureObj.description));
+    assert.deepEqual(reporter.fail.data.calledWith, [[[specDescription], unitDescription, failureObj.errorMessage, undefined]]);
+    assert.deepEqual(reporter.pass.data.calledWith, []);
   });
 
   it("should exit process with the code 0 if tests are passed", async () => {
