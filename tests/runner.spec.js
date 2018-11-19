@@ -104,9 +104,10 @@ describe('Runner', () => {
       unitCollector.addUnit(unitDescription, testFunction);
     });
 
-    await run(unitCollector, execute);
+    const reporter = buildReporter();
+    await run(unitCollector, execute, reporter);
 
-    assert(reporter.fail.calledWith(failureObj.description));
+    assert.deepEqual(reporter.fail.data.calledWith, [[failureObj.errorMessage]]);
   });
 
   it("should exit process with the code 0 if tests are passed", async () => {
