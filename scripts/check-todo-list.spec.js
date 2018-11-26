@@ -37,6 +37,10 @@ describe('Parse a CHANGELOG.md', () => {
       const empty = '# version 2\n- [ ] one item\n- [ ] two items\n- [ ] three items';
       assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'two items', 'three items'] });
     });
+    it('AND many items THEN return the version, and only the todo-items', () => {
+      const empty = '# version 2\n- [ ] one item\n- [x] two items\n- [ ] three items';
+      assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'three items'] });
+    });
     it('AND items, surrounded by lots of empty lines (as a markdown files them might contain)', () => {
       const empty = '\n\n# version 2\n\n- [ ] one item\n- [ ] two items\n- [ ] three items\n\n';
       assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'two items', 'three items'] });
@@ -52,6 +56,11 @@ describe('Parse a CHANGELOG.md', () => {
       const empty = '# version 2\n- [x] one item\n'+
                     '# version 1\n- [ ] 2nd item';
       assert.deepEqual(parseChangelog(empty), { version: 2, items: [] });
+    });
+    it('AND many items are to do THEN return only the first version and it`s todos', () => {
+      const empty = '# version 2\n- [ ] 1st item\n- [x] one item\n'+
+                    '# version 1\n- [ ] 2nd item';
+      assert.deepEqual(parseChangelog(empty), { version: 2, items: ['1st item'] });
     });
   });
 });
