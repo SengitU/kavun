@@ -4,7 +4,11 @@ import assert from 'assert';
 const parseChangelog = (changelogContent) => {
   if (changelogContent) {
     const version = changelogContent.split('# version')[1].split('\n')[0];
-    const [, ...items] = changelogContent.split('\n- [ ] ');
+    const items = changelogContent
+      .split('\n')
+      .filter(line => line.startsWith('- [ ] '))
+      .map(line => line.substr(6))
+    ;
     return { version, items };
   }
   return { version: -1, items: [] };
@@ -26,6 +30,10 @@ describe('Parse a CHANGELOG.md', () => {
     });
     it('AND many items THEN return the version, and the items', () => {
       const empty = '# version 2\n- [ ] one item\n- [ ] two items\n- [ ] three items';
+      assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'two items', 'three items'] });
+    });
+    it('AND items, surrounded by lots of empty lines (as a markdown files them might contain)', () => {
+      const empty = '\n\n# version 2\n\n- [ ] one item\n- [ ] two items\n- [ ] three items\n\n';
       assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'two items', 'three items'] });
     });
   });
