@@ -8,7 +8,7 @@
 - [ ] write tenets for kavun (like: no unnecessary dependency, as fast as possible, )
  
 # version 2.0
-- [ ] add release scripts
+- [x] add release scripts
 - [x] remove sinon by internal, simple spy, see #6
 - [x] refactor test file loaders, so we can pass filter criteria as params
 - [x] pass any number of file names of tests that shall be loaded 
