@@ -7,8 +7,7 @@
 - [ ] show a stacktrace that contains the failing test (currently its always just `runner.js`) (why? e.g. so it can be clicked on in IDEs) 
 - [ ] write tenets for kavun (like: no unnecessary dependency, as fast as possible, )
  
-# Currently in the works
-
+# version 2.0
 - [x] remove sinon by internal, simple spy, see #6
 - [x] refactor test file loaders, so we can pass filter criteria as params
 - [x] pass any number of file names of tests that shall be loaded 
