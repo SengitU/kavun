@@ -5,7 +5,7 @@
   "bin": "./lib/kavun-require.js",
   "scripts": {
     "test": "node -r esm lib/kavun.js ./{**,**/**}/*.spec.js --reporter=minimal",
-    "releasable": "node ./scripts/check-todo-list.js",
+    "releasable": "node -r esm ./scripts/check-todo-list.js",
     "preversion": "npm run releasable && npm test",
     "release": "npm version major"
   },
