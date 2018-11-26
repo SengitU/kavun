@@ -40,7 +40,7 @@ The command line takes:
 
 A sync example for unit
 
-```jskavun.jpg
+```js
 import assert from 'assert';
 import { it } from 'kavun';
 
