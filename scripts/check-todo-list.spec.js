@@ -1,23 +1,6 @@
 import {describe, it} from '../lib';
 import assert from 'assert';
-
-const todoItems = (content) => {
-  return content
-    .split('\n')
-    .filter(line => line.startsWith('- [ ] '))
-    .map(line => line.substr(6))
-    ;
-};
-
-const parseChangelog = (changelogContent) => {
-  if (changelogContent) {
-    const versions = changelogContent.split('# version');
-    const firstVersionParagraph = versions[1];
-    const version = firstVersionParagraph.split('\n')[0];
-    return { version, items: todoItems(firstVersionParagraph) };
-  }
-  return { version: -1, items: [] };
-};
+import { parseChangelog } from './parse-changelog.js';
 
 describe('Parse a CHANGELOG.md', () => {
   it('WHEN empty THEN return no info', () => {
