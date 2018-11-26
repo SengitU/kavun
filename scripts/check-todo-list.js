@@ -1,12 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-
+import fs from 'fs';
+import path from 'path';
 import { parseChangelog, LINE_START_FOR_TODO } from './parse-changelog.js';
-const CHANGELOG_FILENAME = path.join(__dirname, '../CHANGELOG.md');
-const changelog = fs.readFileSync(CHANGELOG_FILENAME, 'utf-8');
 
-const {version, items} = parseChangelog(changelog);
-const notYetDone = items;
+const CHANGELOG_FILENAME = path.join(__dirname, '../CHANGELOG.md');
+
+const changelog = fs.readFileSync(CHANGELOG_FILENAME, 'utf-8');
+const {version, items: notYetDone} = parseChangelog(changelog);
+
 if (notYetDone.length === 0) {
   process.exit(0);
 }
