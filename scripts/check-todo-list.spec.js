@@ -43,10 +43,15 @@ describe('Parse a CHANGELOG.md', () => {
     });
   });
   describe('WHEN it contains multiple "version lines"', () => {
-    it('AND items, surrounded by lots of empty lines (as a markdown files them might contain)', () => {
+    it('AND items THEN return only the first version found', () => {
       const empty = '# version 2\n- [ ] one item\n'+
                     '# version 1\n- [ ] 2nd item';
       assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item'] });
+    });
+    it('AND no items THEN return only the first version', () => {
+      const empty = '# version 2\n- [x] one item\n'+
+                    '# version 1\n- [ ] 2nd item';
+      assert.deepEqual(parseChangelog(empty), { version: 2, items: [] });
     });
   });
 });
