@@ -1,15 +1,20 @@
-import { it, describe } from '../lib';
+import {describe, it} from '../lib';
 import assert from 'assert';
+
+const todoItems = (content) => {
+  return content
+    .split('\n')
+    .filter(line => line.startsWith('- [ ] '))
+    .map(line => line.substr(6))
+    ;
+};
 
 const parseChangelog = (changelogContent) => {
   if (changelogContent) {
-    const version = changelogContent.split('# version')[1].split('\n')[0];
-    const items = changelogContent
-      .split('\n')
-      .filter(line => line.startsWith('- [ ] '))
-      .map(line => line.substr(6))
-    ;
-    return { version, items };
+    const versions = changelogContent.split('# version');
+    const firstVersionParagraph = versions[1];
+    const version = firstVersionParagraph.split('\n')[0];
+    return { version, items: todoItems(firstVersionParagraph) };
   }
   return { version: -1, items: [] };
 };
@@ -35,6 +40,13 @@ describe('Parse a CHANGELOG.md', () => {
     it('AND items, surrounded by lots of empty lines (as a markdown files them might contain)', () => {
       const empty = '\n\n# version 2\n\n- [ ] one item\n- [ ] two items\n- [ ] three items\n\n';
       assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'two items', 'three items'] });
+    });
+  });
+  describe('WHEN it contains multiple "version lines"', () => {
+    it('AND items, surrounded by lots of empty lines (as a markdown files them might contain)', () => {
+      const empty = '# version 2\n- [ ] one item\n'+
+                    '# version 1\n- [ ] 2nd item';
+      assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item'] });
     });
   });
 });
