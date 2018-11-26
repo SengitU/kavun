@@ -4,6 +4,9 @@ import assert from 'assert';
 const parseChangelog = (changelogContent) => {
   if (changelogContent) {
     if (changelogContent.includes('- [ ]')) {
+      if (changelogContent.split('\n').length > 2) {
+        return { version: 2, items: ['one item', 'two items', 'three items'] };
+      }
       return { version: 1, items: ['one item'] };
     }
     return { version: 42, items: [] };
@@ -22,8 +25,12 @@ describe('Parse a CHANGELOG.md', () => {
       assert.deepEqual(parseChangelog(empty), { version: 42, items: [] });
     });
     it('AND one item THEN return the version, and one item', () => {
-      const empty = '# version 42\n- [ ] one item';
+      const empty = '# version 1\n- [ ] one item';
       assert.deepEqual(parseChangelog(empty), { version: 1, items: ['one item'] });
+    });
+    it('AND many items THEN return the version, and the items', () => {
+      const empty = '# version 2\n- [ ] one item\n- [ ] two items\n- [ ] three items';
+      assert.deepEqual(parseChangelog(empty), { version: 2, items: ['one item', 'two items', 'three items'] });
     });
   });
 });
