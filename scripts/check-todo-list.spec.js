@@ -3,13 +3,14 @@ import assert from 'assert';
 
 const parseChangelog = (changelogContent) => {
   if (changelogContent) {
+    const version = changelogContent.split('# version')[1].split('\n')[0];
     if (changelogContent.includes('- [ ]')) {
       if (changelogContent.split('\n').length > 2) {
-        return { version: 2, items: ['one item', 'two items', 'three items'] };
+        return { version, items: ['one item', 'two items', 'three items'] };
       }
-      return { version: 1, items: ['one item'] };
+      return { version, items: ['one item'] };
     }
-    return { version: 42, items: [] };
+    return { version, items: [] };
   }
   return { version: -1, items: [] };
 };
