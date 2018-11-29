@@ -10,11 +10,12 @@ const todoItems = (content) => {
 };
 
 export const parseChangelog = (changelogContent) => {
-  if (changelogContent) {
-    const versions = changelogContent.split(LINE_START_FOR_NEW_VERSION);
-    const firstVersionParagraph = versions[1];
-    const version = firstVersionParagraph.split('\n')[0];
-    return { version, items: todoItems(firstVersionParagraph) };
+  const hasContent = !!changelogContent.trim();
+  if (!hasContent) {
+    return { version: -1, items: [] };
   }
-  return { version: -1, items: [] };
+  const versions = changelogContent.split(LINE_START_FOR_NEW_VERSION);
+  const firstVersionParagraph = versions[1];
+  const version = firstVersionParagraph.split('\n')[0];
+  return { version, items: todoItems(firstVersionParagraph) };
 };

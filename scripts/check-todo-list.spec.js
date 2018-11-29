@@ -7,6 +7,10 @@ describe('Parse a CHANGELOG.md', () => {
     const empty = '';
     assert.deepEqual(parseChangelog(empty), { version: -1, items: [] });
   });
+  it('WHEN spaces only THEN return no info', () => {
+    const empty = '   \n    ';
+    assert.deepEqual(parseChangelog(empty), { version: -1, items: [] });
+  });
   describe('WHEN it contains one "version line"', () => {
     it('AND no items THEN return the version, no items', () => {
       const empty = '# version 42';
