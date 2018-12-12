@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/SengitU/kavun.svg?branch=master)](https://travis-ci.org/SengitU/kavun)
 
-Kavun is a light weight spec runner library for Javascript.
+Kavun is a lightweight spec runner library for Javascript.
 
 ## The Real Kavun
 
