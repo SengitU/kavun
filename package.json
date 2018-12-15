@@ -1,10 +1,13 @@
 {
   "name": "kavun",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A test framework for Javascript",
-  "bin": "./lib/kavun.js",
+  "bin": "./lib/kavun-require.js",
   "scripts": {
-    "test": "node lib/kavun.js"
+    "test": "node -r esm lib/kavun.js `bash -c 'ls ./{**,**/**}/*.spec.js'` --reporter=minimal",
+    "releasable": "node -r esm ./scripts/check-todo-list.js",
+    "preversion": "npm run releasable && npm test",
+    "release": "npm version major"
   },
   "repository": {
     "type": "git",
@@ -25,9 +28,7 @@
     "url": "https://github.com/SengitU/kavun/issues"
   },
   "homepage": "https://github.com/SengitU/kavun#readme",
-  "devDependencies": {
-    "sinon": "^4.5.0"
-  },
+  "devDependencies": {},
   "main": "lib/index.js",
   "directories": {
     "example": "example",
@@ -35,6 +36,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "uuid": "^3.2.1"
+    "esm": "^3.0.84",
+    "minimist": "^1.2.0"
   }
 }
