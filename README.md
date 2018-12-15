@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sengitu/kavun.svg?branch=master)](https://travis-ci.org/sengitu/kavun)
 
-Kavun is a lightweight spec runner library for Javascript.
+Kavun is a lightweight spec runner library for Javascript. See the tenets below for understanding what drives and steers this project.
 
 ## The Real Kavun
 
@@ -120,6 +120,11 @@ describe('Example Spec', () => {
 });
 
 ```
+## Tenets
+1) In doubt solve it without a new dependency.
+2) In doubt don't add a new feature, rather remove one.
+3) Prefer speed.
+4) Be compatible to mocha-style test libs, allowing well written tests overrules.
 
 ## Development
 
