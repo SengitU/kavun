@@ -1,4 +1,4 @@
 language: node_js
 node_js: 
   - "lts/*"
-script: bash command npm test
+script: bash -c 'npm test'
