@@ -1,6 +1,6 @@
 # Kavun
 
-[![Build Status](https://travis-ci.org/wolframkriesing/kavun.svg?branch=master)](https://travis-ci.org/wolframkriesing/kavun)
+[![Build Status](https://travis-ci.org/sengitu/kavun.svg?branch=master)](https://travis-ci.org/sengitu/kavun)
 
 Kavun is a lightweight spec runner library for Javascript.
 
@@ -12,9 +12,7 @@ The project is named after my elder cat Kavun.
 
 ## Installation
 
-NOT YET via npm (kavun is currently published from the [original repo][original-kavun]) `npm install kavun`
-
-[original-kavun]: https://github.com/SengitU/kavun
+`npm install kavun`
 
 ### Usage Examples
 
