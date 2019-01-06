@@ -4,12 +4,13 @@
 - [ ] move `buildSpy()` into it's own npm module (maybe "kavun-spy")
 - [ ] IDEA: write a codemodder that fixes `beforeEach` etc. and converts them into proper tests!? to become more compatible with mocha
 - [ ] move the time tracking into the reporter, if the reporter wants to do anything fancy with the time, it needs to be in control and a test runner just runs tests does NOT measure or alike
-- [ ] show a stacktrace that contains the failing test (currently its always just `runner.js`) (why? e.g. so it can be clicked on in IDEs) 
+- [ ] show a stacktrace that contains the failing test (currently its always just `runner.js`) (why? e.g. so it can be clicked on in IDEs)
+- [ ] Keep improving tenets!
 
 # version 3.0
 - [x] move tests inside lib directory, close to the source
 - [x] BUG: make the check-todo-list (using CHANGELOG.md) script work properly (by testing it :) )
-- [ ] write tenets for kavun (like: no unnecessary dependency, as fast as possible, )
+- [x] write tenets for kavun (like: no unnecessary dependency, as fast as possible, )
 
 # version 2.0
 - [x] add release scripts
