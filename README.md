@@ -1,6 +1,6 @@
 # Kavun
 
-[![Build Status](https://travis-ci.org/sengitu/kavun.svg?branch=master)](https://travis-ci.org/sengitu/kavun)
+[![Build Status](https://travis-ci.org/SengitU/kavun.svg?branch=master)](https://travis-ci.org/sengitu/kavun)
 
 Kavun is a lightweight spec runner library for Javascript. See the [ADRs][adrs] and [tenets](#tenets) below for understanding what drives and steers this project.
 
