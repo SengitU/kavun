@@ -28,7 +28,9 @@
     "url": "https://github.com/SengitU/kavun/issues"
   },
   "homepage": "https://github.com/SengitU/kavun#readme",
-  "devDependencies": {},
+  "devDependencies": {
+    "to-do-list-checker": "^2.0.0"
+  },
   "main": "lib/index.js",
   "directories": {
     "example": "example",
