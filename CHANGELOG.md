@@ -7,6 +7,10 @@
 - [ ] show a stacktrace that contains the failing test (currently its always just `runner.js`) (why? e.g. so it can be clicked on in IDEs)
 - [ ] Keep improving tenets!
 
+# version 4.0
+- [x] Move the changelog-checker into own repo (it is https://github.com/wolframkriesing/to-do-list-checker)
+- [ ] ??? something useful :)
+
 # version 3.0
 - [x] move tests inside lib directory, close to the source
 - [x] BUG: make the check-todo-list (using CHANGELOG.md) script work properly (by testing it :) )
