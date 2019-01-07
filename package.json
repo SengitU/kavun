@@ -5,7 +5,7 @@
   "bin": "./lib/kavun-require.js",
   "scripts": {
     "test": "node -r esm lib/kavun.js `bash -c 'ls ./{**,**/**}/*.spec.js'` --reporter=minimal",
-    "releasable": "node -r esm ./scripts/check-todo-list.js",
+    "releasable": "to-do-list-checker",
     "preversion": "npm run releasable && npm test",
     "release": "npm version major"
   },
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/SengitU/kavun#readme",
   "devDependencies": {
-    "to-do-list-checker": "^2.0.0"
+    "to-do-list-checker": "^3.0.0"
   },
   "main": "lib/index.js",
   "directories": {
