@@ -8,7 +8,8 @@
 - [ ] Keep improving tenets!
 
 # version 4.0
-- [ ] Move the changelog-checker into own repo (it is https://github.com/wolframkriesing/to-do-list-checker)
+- [x] Move the changelog-checker into own repo (it is https://github.com/wolframkriesing/to-do-list-checker)
+- [ ] ??? something useful :)
 
 # version 3.0
 - [x] move tests inside lib directory, close to the source
