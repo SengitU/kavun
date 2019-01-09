@@ -4,7 +4,7 @@
   "description": "A test framework for Javascript",
   "bin": "./lib/kavun-require.js",
   "scripts": {
-    "test": "node -r esm lib/kavun.js `bash -c 'ls ./{**,**/**}/*.spec.js'` --reporter=minimal",
+    "test": "node -r esm lib/kavun.js `find . -iname *.spec.js` --reporter=minimal",
     "releasable": "to-do-list-checker",
     "preversion": "npm run releasable && npm test",
     "release": "npm version major"
